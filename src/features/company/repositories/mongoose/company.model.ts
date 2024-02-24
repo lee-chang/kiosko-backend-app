@@ -1,9 +1,7 @@
-import { ICompany } from '../../interfaces/company.interface'
-import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
 import { model, Schema } from 'mongoose'
+import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
+import { ICompany } from '../../interfaces/company.interface'
 
-import { phoneSchema } from '../../../shared/repositories/mongoose/phone.model'
-import { addressSchema } from '../../../shared/repositories/mongoose/address.model'
 
 
 const CompanySchema: Schema = new Schema<ICompany & {_id:string}>(
@@ -57,5 +55,5 @@ CompanySchema.pre('save', async function(next) {
   next();
 });
 
-const CompanyModel = model<ICompany>('User', CompanySchema)
+const CompanyModel = model<ICompany>('Company', CompanySchema)
 export default CompanyModel

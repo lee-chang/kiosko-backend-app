@@ -7,6 +7,8 @@ import AuthUserRouter from './features/auth/routes/auth.route'
 import RoleRouter from './features/role/routes/role.route'
 import PermissionRouter from './features/role/routes/permission.route'
 
+import CompanyRouter from './features/company/routes/company.route'
+
 const route = new RouterPath()
 
 const router = Router()
@@ -17,7 +19,11 @@ router.use(route.getApiPath('user'), UserRouter)
 router.use(route.getApiPath('role'), RoleRouter)
 router.use(route.getApiPath('permission'), PermissionRouter)
 
-//Rutas para el Ecommerce
+
+
+
+//Rutas para el kiosko
+router.use(route.getApiPath('company'),CompanyRouter)
 
 
 export default router
