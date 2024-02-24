@@ -15,5 +15,8 @@ export interface ISale {
   customer: string // -> customer id
   staff: string // -> staff id
 
+  observation: string
+
+
   status: boolean // true: success, false: cancelled or rejected 
 }

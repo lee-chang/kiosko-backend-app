@@ -4,6 +4,7 @@ export interface IPaymenent {
   status: boolean // true: aprovated, false: cancelled
   method: PaymentMethod
   staff: string // -> staff id
+  observation: string
   createdAt: Date
   updatedAt: Date
 }

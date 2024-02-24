@@ -13,9 +13,9 @@ export const addressSchema: Schema = new Schema<IAddress>({
     type: String,
   },
   address: {
-    type: [String],
+    type: String,
   },
-  number: {
+  district: {
     type: String,
   },
   reference: {

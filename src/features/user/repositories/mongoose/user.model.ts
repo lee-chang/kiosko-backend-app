@@ -45,11 +45,7 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
         ref: 'Role',
       },
     ],
-    firstName: {
-      type: String,
-      trim: true,
-    },
-    lastName: {
+    name: {
       type: String,
       trim: true,
     },
@@ -76,9 +72,6 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
       trim: true,
     },
     lastLogin: {
-      type: Date
-    },
-    birthDate: {
       type: Date
     },
 

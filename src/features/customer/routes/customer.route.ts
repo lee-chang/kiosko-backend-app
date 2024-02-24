@@ -1,7 +1,6 @@
+import { Router } from 'express'
 import { CustomerControlller } from '../controllers/customer.controller'
 // import { validatePermission } from '../../../core/middlewares/validatePermission'
-import { Router } from 'express'
-import { CustomerRoleController } from '../controllers/customer-role.controller'
 
 import { authRequired } from '../../../core/middleware/validateToken.middleware'
 import { validatorShema } from '../../../core/middleware/validateSchema.middleware'
@@ -19,13 +18,6 @@ router.patch(
   authRequired,
   validatorShema(CustomerSchema.Update),
   CustomerControlller.updateCustomer
-)
-// ** RELATIONSHIPS
-router.patch(
-  '/:id/roles',
-  authRequired,
-  validatorShema(CustomerSchema.Updaterole),
-  CustomerRoleController.updateCustomerRoles
 )
 
 export default router
