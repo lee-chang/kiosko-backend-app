@@ -2,8 +2,8 @@ export interface IProduct {
   id: string
   name: string
   description: string
-  refence_price: number
-  image: string
-  createdAt: Date
-  updatedAt: Date
+  reference_price: number
+  image?: string
+  createdAt?: Date
+  updatedAt?: Date
 }

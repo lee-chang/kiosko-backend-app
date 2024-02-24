@@ -8,6 +8,7 @@ import RoleRouter from './features/role/routes/role.route'
 import PermissionRouter from './features/role/routes/permission.route'
 
 import CompanyRouter from './features/company/routes/company.route'
+import ProductRouter from './features/product/routes/product.route'
 
 const route = new RouterPath()
 
@@ -24,6 +25,6 @@ router.use(route.getApiPath('permission'), PermissionRouter)
 
 //Rutas para el kiosko
 router.use(route.getApiPath('company'),CompanyRouter)
-
+router.use(route.getApiPath('product'),ProductRouter)
 
 export default router

@@ -15,6 +15,13 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
       unique: true,
       key: true,
     },
+    isIndependent: {
+      type: Boolean,
+      default: true,
+    },
+    
+
+
     identificationType: {
       type: String,
       trim: true,
