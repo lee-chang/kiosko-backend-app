@@ -20,12 +20,6 @@ router.patch(
   validatorShema(CustomerSchema.Update),
   CustomerControlller.updateCustomer
 )
-router.patch(
-  '/:id/password',
-  validatorShema(CustomerSchema.UpdatePassword),
-  CustomerControlller.updateCustomerPassword
-)
-
 // ** RELATIONSHIPS
 router.patch(
   '/:id/roles',

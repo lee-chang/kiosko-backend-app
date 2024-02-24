@@ -20,14 +20,8 @@ export class CustomerService {
     return users
   }
 
-  static async updateCustomerById(id: string, user: ICustomer): Promise<ICustomer> {
-    // Is exist user.password -> hash password
-    if (user.password) {
-      const passwordHashed = await AuthUtil.hashPassword(user.password)
-      user.password = passwordHashed
-    }
-
-    const userUpdated = await this.customerRepository.updateCustomerById(id, user)
+  static async updateCustomerById(id: string, customer: ICustomer): Promise<ICustomer> {
+    const userUpdated = await this.customerRepository.updateCustomerById(id, customer)
 
     return notUndefinedOrNull(userUpdated)
   }
@@ -37,21 +31,9 @@ export class CustomerService {
     return notUndefinedOrNull(userDeleted)
   }
 
-  static async createCustomer(user: ICustomer): Promise<ICustomer> {
-    const userCreated = await this.customerRepository.createCustomer(user)
+  static async createCustomer(customer: ICustomer): Promise<ICustomer> {
+    const userCreated = await this.customerRepository.createCustomer(customer)
     return notUndefinedOrNull(userCreated)
-  }
-
-  static async updateCustomerPassword(
-    id: string,
-    password: string
-  ): Promise<ICustomer> {
-    const passwordHashed = await AuthUtil.hashPassword(password)
-
-    const userUpdated = await this.customerRepository.updateCustomerById(id, {
-      password: passwordHashed,
-    })
-    return notUndefinedOrNull(userUpdated)
   }
 
   // ** UTILS

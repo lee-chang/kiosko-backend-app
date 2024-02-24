@@ -2,14 +2,17 @@ import { IAddress } from './address.interface'
 import { IPhone } from './phone.interface'
 
 interface IPerson {
-  firstName: string
-  lastName: string
-  identificationType: IdentificationType
-  identification: string
-  birthDate?: Date
+
+  // Info
+  name: string
+  identificationType?: IdentificationType
+  identification?: string
+
+  // Contact
   phone?: IPhone[]
   address?: IAddress[]
 }
+
 
 enum IdentificationType {
   dni = 'DNI',

@@ -23,35 +23,11 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
       type: String,
       trim: true,
     },
-    userName: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    email: {
-      type: String,
-      require: true,
-      trim: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      require: true,
-    },
-    role: [
-      {
-        type: String,
-        ref: 'Role',
-      },
-    ],
-    firstName: {
+    name: {
       type: String,
       trim: true,
     },
-    lastName: {
-      type: String,
-      trim: true,
-    },
+
     phone: [
       {
         type: phoneSchema,
@@ -62,22 +38,6 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
         type: addressSchema,
       },
     ],
-    verified: {
-      type: Boolean,
-      default: false,
-    },
-    login_code: {
-      type: String,
-      trim: true,
-    },
-    recovery_code: {
-      type: String,
-      trim: true,
-    },
-    birthDate: {
-      type: Date,
-    },
-
   },
   {
     id: true,
