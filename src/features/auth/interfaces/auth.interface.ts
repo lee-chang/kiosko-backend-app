@@ -1,5 +1,3 @@
-import { KeyTypePerson, KeyTypePerson } from "../../shared/interfaces/person.interface";
-
 export interface IAuthCredentials {
     email: string;
     password: string;
