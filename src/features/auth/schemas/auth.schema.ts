@@ -1,5 +1,5 @@
 import z from 'zod'
-import { IAuthCredentials } from '../../interfaces/auth.interface'
+import { IAuthCredentials } from '../interfaces/auth.interface'
 
 const passwordSchema = z.object({
   password: z

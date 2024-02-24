@@ -1,5 +1,5 @@
 import * as express from "express"
-import { Payload } from "../../../features/auth/interfaces/jwt.payload.interface";
+import { Payload } from "../../../features/auths/interfaces/jwt.payload.interface";
 
 import * as jwt from "jsonwebtoken";
 

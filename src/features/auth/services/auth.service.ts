@@ -1,14 +1,14 @@
-import { Payload } from '../../interfaces/jwt.payload.interface'
-import { ErrorExt } from '../../../../core/utils/http.response.util'
-import { HttpStatus } from '../../../../core/interfaces/httpStatus.interface'
-import { IAuthCredentials, resAuth, userData } from '../../interfaces/auth.interface'
+import { Payload } from '../interfaces/jwt.payload.interface'
+import { ErrorExt } from '../../../core/utils/http.response.util'
+import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
+import { IAuthCredentials, resAuth, userData } from '../interfaces/auth.interface'
 
 import { AuthUserService } from './auth-user.service'
 import { AuthUserRepository } from '../repositories/auth.repository'
 
-import { ToolRoleService } from '../../../role/services/toolRole.service'
-import { TypePerson } from '../../../shared/interfaces/person.interface'
-import { IUser } from '../../../user/interfaces/user.interface'
+import { ToolRoleService } from '../../role/services/toolRole.service'
+import { TypePerson } from '../../shared/interfaces/person.interface'
+import { IUser } from '../../user/interfaces/user.interface'
 
 const authRepository = new AuthUserRepository()
 

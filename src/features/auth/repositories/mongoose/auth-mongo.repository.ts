@@ -1,6 +1,6 @@
-import { IUser } from '../../../../user/interfaces/user.interface'
+import { IUser } from '../../../user/interfaces/user.interface'
 import { AuthUserRepositoryPort } from '../auth-repository.model'
-import UserModel from '../../../../user/repositories/mongoose/user.model'
+import UserModel from '../../../user/repositories/mongoose/user.model'
 
 export class AuthUserRepositoryMongoDB implements AuthUserRepositoryPort {
   async createUser(user: IUser) {

@@ -1,7 +1,6 @@
 import { CustomerRepository } from '../repositories/customer.repository'
 import { ICustomer } from '../interfaces/customer.interface'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
-import { AuthUtil } from '../../auth/utils/auth.util'
 
 // import { addAbortSignal } from 'nodemailer/lib/xoauth2'
 

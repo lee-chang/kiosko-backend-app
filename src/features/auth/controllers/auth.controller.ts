@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import { IAuthCredentials } from '../../interfaces/auth.interface'
-import { ENV_CONFIG } from '../../../../config/env.config'
-import { HttpStatus } from '../../../../core/interfaces/httpStatus.interface'
+import { IAuthCredentials } from '../interfaces/auth.interface'
+import { ENV_CONFIG } from '../../../config/env.config'
+import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
 
 import { AuthService } from '../services/auth.service'
-import { Payload } from '../../interfaces/jwt.payload.interface'
-import { IUser } from '../../../user/interfaces/user.interface'
+import { Payload } from '../interfaces/jwt.payload.interface'
+import { IUser } from '../../user/interfaces/user.interface'
 
 export class AuthController {
   static async register(req: Request, res: Response, next: NextFunction) {

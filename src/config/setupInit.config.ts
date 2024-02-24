@@ -1,7 +1,7 @@
 // **  Scrip para crear los roles en la base de datos (SuperAdmin, Admin, Customer) **
 
 import { IAuthCredentials } from '../features/auth/interfaces/auth.interface'
-import { AuthUserService } from '../features/auth/user/services/auth-user.service'
+import { AuthUserService } from '../features/auth/services/auth-user.service'
 import { IRole } from '../features/role/interfaces/role.interface'
 import { RoleRepository } from '../features/role/repositories/role.repository'
 import { TypePerson } from '../features/shared/interfaces/person.interface'

@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { AuthController } from '../controllers/auth.controller'
 
-import { authRequired } from '../../../../core/middleware/validateToken.middleware'
-import { validatorShema } from '../../../../core/middleware/validateSchema.middleware'
+import { authRequired } from '../../../core/middleware/validateToken.middleware'
+import { validatorShema } from '../../../core/middleware/validateSchema.middleware'
 import { AuthSchema } from '../schemas/auth.schema'
 
 const router = Router()

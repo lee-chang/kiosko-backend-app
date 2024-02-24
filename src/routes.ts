@@ -3,7 +3,7 @@ import { RouterPath } from './core/service/loggerRouter.service'
 
 import CustomerRouter from './features/customer/routes/customer.route'
 import UserRouter from './features/user/routes/user.route'
-import AuthUserRouter from './features/auth/user/routes/auth.route'
+import AuthUserRouter from './features/auth/routes/auth.route'
 import RoleRouter from './features/role/routes/role.route'
 import PermissionRouter from './features/role/routes/permission.route'
 
