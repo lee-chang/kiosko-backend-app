@@ -1,15 +1,15 @@
-export interface IPaymenent {
+export interface IPayment {
   id: string
   amount: number
   status: boolean // true: aprovated, false: cancelled
   method: PaymentMethod
   staff: string // -> staff id
-  observation: string
-  createdAt: Date
-  updatedAt: Date
+  observation?: string
+  createdAt?: Date
+  updatedAt?: Date
 }
 
-enum PaymentMethod {
+export enum PaymentMethod {
   YAPE = 'YAPE',
   TUNKI = 'TUNKI',
   PLIM = 'PLIM',

@@ -9,6 +9,10 @@ import PermissionRouter from './features/role/routes/permission.route'
 
 import CompanyRouter from './features/company/routes/company.route'
 import ProductRouter from './features/product/routes/product.route'
+import PaymentRouter from './features/payment/routes/payment.route'
+import OrderRouter from './features/order/routes/order.route'
+import CreditRouter from './features/credit/routes/credit.route'
+import BalanceRouter from './features/balance/routes/balance.route'
 
 const route = new RouterPath()
 
@@ -21,10 +25,12 @@ router.use(route.getApiPath('role'), RoleRouter)
 router.use(route.getApiPath('permission'), PermissionRouter)
 
 
-
-
 //Rutas para el kiosko
 router.use(route.getApiPath('company'),CompanyRouter)
 router.use(route.getApiPath('product'),ProductRouter)
+router.use(route.getApiPath('payment'),PaymentRouter)
+router.use(route.getApiPath('order'),OrderRouter)
+router.use(route.getApiPath('credit'),CreditRouter)
+router.use(route.getApiPath('balance'),BalanceRouter)
 
 export default router

@@ -25,8 +25,8 @@ export class ProductRepository implements ProductRepositoryPort {
     return await this.productRepository.createProduct(product)
   }
 
-  async updateProductById(id: string, rol: IProduct): Promise<IProduct | null> {
-    return await this.productRepository.updateProductById(id, rol)
+  async updateProductById(id: string, product: IProduct): Promise<IProduct | null> {
+    return await this.productRepository.updateProductById(id, product)
   }
 
   async deleteProductById(id: string): Promise<Boolean> {

@@ -3,11 +3,11 @@ export interface IBalance {
   
   customer: string // -> customer id
 
-  paymenent: string[] // -> payment id
+  payment: string[] // -> payment id
   credit: string[]  // -> credit id
 
   total: number
 
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }

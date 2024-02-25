@@ -40,14 +40,14 @@ export class ProductRepositoryMongoDB implements ProductRepositoryPort {
     return product
   }
 
-  async createProduct(rol: IProduct) {
-    const newProduct = new ProductModel(rol)
+  async createProduct(product: IProduct) {
+    const newProduct = new ProductModel(product)
     const productCreated = await newProduct.save()
     return productCreated
   }
 
-  async updateProductById(id: string, rol: IProduct) {
-    const updateRol = await ProductModel.findByIdAndUpdate(id, rol, { new: true })
+  async updateProductById(id: string, product: IProduct) {
+    const updateRol = await ProductModel.findByIdAndUpdate(id, product, { new: true })
     return updateRol
   }
 
