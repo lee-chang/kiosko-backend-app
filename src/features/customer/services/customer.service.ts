@@ -33,12 +33,16 @@ export class CustomerService {
     id: string,
     customer: ICustomer
   ): Promise<ICustomer> {
-    const userUpdated = await this.customerRepository.updateCustomerById(
-      id,
-      customer
-    )
+      console.log('id', id)
+      console.log('customer', customer)
 
-    return notUndefinedOrNull(userUpdated)
+
+      const userUpdated = await this.customerRepository.updateCustomerById(
+        id,
+        customer
+      )
+      return notUndefinedOrNull(userUpdated)
+
   }
 
   static async deleteCustomerById(id: string): Promise<Boolean> {
@@ -58,10 +62,13 @@ export class CustomerService {
       initialBalance
     )
 
-    if (!newBalance)  throw new ErrorExt('BALANCE_NOT_CREATED', HttpStatus.INTERNAL_SERVER_ERROR)
+    if (!newBalance)
+      throw new ErrorExt(
+        'BALANCE_NOT_CREATED',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
 
     customer.balance = newBalance.id
-
 
     const customerCreated = await this.customerRepository.createCustomer(
       customer

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
 import { CustomerService } from '../services/customer.service'
+import { ICustomer } from '../interfaces/customer.interface'
 
 export class CustomerControlller {
 
@@ -40,7 +41,7 @@ export class CustomerControlller {
 
   static async updateCustomer(req: Request, res: Response,next:NextFunction) {
     const { id } = req.params
-    const customer = req.body
+    const customer: ICustomer = req.body
     try {
       const customerUpdated = await CustomerService.updateCustomerById(id, customer)
       return res.status(HttpStatus.OK).send(customerUpdated)

@@ -3,6 +3,8 @@ import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
 import { IUser } from '../../interfaces/user.interface'
 
 import { PersonSchema } from '../../../shared/repositories/mongoose/person.schema'
+import { phoneSchema } from '../../../shared/repositories/mongoose/phone.schema'
+import { addressSchema } from '../../../shared/repositories/mongoose/address.schema'
 
 
 const UserSchema: Schema = new Schema<IUser & {_id:string}>(
@@ -51,6 +53,32 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
       type: Date
     },
 
+
+
+    // PersonSchema
+    identificationType: {
+      type: String,
+      trim: true,
+    },
+    identification: {
+      type: String,
+      trim: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+    phone: [
+      {
+        type: phoneSchema,
+      },
+    ],
+    address: [
+      {
+        type: addressSchema,
+      },
+    ],
+
   },
   {
     id: true,
@@ -64,7 +92,7 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
   }
 )
 
-UserSchema.add(PersonSchema)
+
 
 UserSchema.pre('save', async function(next) {
   // Crea un id de ira

@@ -4,6 +4,9 @@ import { model, Schema } from 'mongoose'
 import { PersonSchema } from '../../../shared/repositories/mongoose/person.schema'
 import { TeacherSchema } from './teacher.schema'
 import { StudentSchema } from './student.schema'
+import { ParentSchema } from './parent.schema'
+import { phoneSchema } from '../../../shared/repositories/mongoose/phone.schema'
+import { addressSchema } from '../../../shared/repositories/mongoose/address.schema'
 
 const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
   {
@@ -39,13 +42,38 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
     },
 
     parent:{
-
+      type: ParentSchema
     },
 
     notes: [{
       type: String,
       trim: true,
-    }]
+    }],
+
+    // PersonSchema
+
+    identificationType: {
+      type: String,
+      trim: true,
+    },
+    identification: {
+      type: String,
+      trim: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+    phone: [
+      {
+        type: phoneSchema,
+      },
+    ],
+    address: [
+      {
+        type: addressSchema,
+      },
+    ],
 
   },
   {
@@ -59,8 +87,6 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
     versionKey: false,
   }
 )
-
-CustomerSchema.add(PersonSchema)
 
 CustomerSchema.pre('save', async function (next) {
   // Crea un id de ira

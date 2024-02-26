@@ -1,5 +1,6 @@
 import z, { Schema } from 'zod'
 import {
+  IChild,
   ICustomer,
   IParent,
   IStudent,
@@ -30,9 +31,16 @@ const studentSchema = z.object({
   section: z.string(),
 }) satisfies z.ZodType<IStudent>
 
+
+const childSchema = personSchema.extend({
+  level: z.nativeEnum(LevelCollege).optional(),
+  grade: z.number().optional(),
+  section: z.string().optional(),
+}) satisfies z.ZodType<IChild>
+
 const parentSchema = z.object({
   isParent: z.boolean(),
-  child: z.array(z.string()),
+  child: z.array(childSchema),
 }) satisfies z.ZodType<IParent>
 
 

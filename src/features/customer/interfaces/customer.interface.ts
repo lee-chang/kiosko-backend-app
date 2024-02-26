@@ -25,8 +25,10 @@ export interface ICustomer extends IPerson {
 
 export interface IParent {
   isParent: boolean
-  child?: string[] // -> id de los hijos
+  child?: IChild[]
 }
+
+export interface IChild extends IPerson,IStudent {}
 
 export interface ITeacher {
   courses?: string[] // -> Nombre de los cursos
