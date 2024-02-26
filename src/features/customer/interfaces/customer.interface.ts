@@ -6,7 +6,7 @@ export interface ICustomer extends IPerson {
   isIndependent:boolean
 
   // balance
-  balance: string[] // -> id de los balances
+  balance: string // -> id de los balances
   
   // Type Customer
   typeCustomer: TypeCustomer
@@ -14,7 +14,6 @@ export interface ICustomer extends IPerson {
   // Attributes of Teacher
   teacher?: ITeacher
   student?: IStudent
-  employee?: IEmploye
   parent?: IParent
 
   // Details Extras
@@ -24,17 +23,12 @@ export interface ICustomer extends IPerson {
   updatedAt?: Date
 }
 
-interface IParent {
+export interface IParent {
   isParent: boolean
   child?: string[] // -> id de los hijos
 }
 
-interface IEmploye {
-  position?: string // -> Cargo
-  area?: string // -> Area
-}
-
-interface ITeacher {
+export interface ITeacher {
   courses?: string[] // -> Nombre de los cursos
   isMentor?: boolean
   level?: LevelCollege
@@ -43,22 +37,21 @@ interface ITeacher {
   specialty?: string // -> Especialidad
 }
 
-interface IStudent {
+export interface IStudent {
   level?: LevelCollege // -> Nivel
   grade?: number // -> Grado
   section?: string // -> Sección
 }
 
-enum LevelCollege {
+export enum LevelCollege {
   primary = 'primary',
   secondary = 'secondary',
   initial = 'initial',
   other = 'other',
 }
 
-enum TypeCustomer {
+export enum TypeCustomer {
   teacher = 'teacher',
-  employee = 'employee',
   student = 'student',
   parent = 'parent',
   other = 'other',

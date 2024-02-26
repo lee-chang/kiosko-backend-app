@@ -1,49 +1,86 @@
-import { CustomerRepository } from '../repositories/customer.repository'
-import { ICustomer } from '../interfaces/customer.interface'
+import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
+import { PaginateData } from '../../../core/interfaces/resPaginate.interface'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
+import { ErrorExt } from '../../../core/utils/http.response.util'
+import { IBalance } from '../../balance/interfaces/balance.interface'
+import { BalanceRepository } from '../../balance/repositories/balance.repository'
+import { ICustomer } from '../interfaces/customer.interface'
+import { CustomerRepository } from '../repositories/customer.repository'
 
 // import { addAbortSignal } from 'nodemailer/lib/xoauth2'
 
 const customerRepository = new CustomerRepository()
+const balanceRepository = new BalanceRepository()
 
 export class CustomerService {
   private static customerRepository = customerRepository
+  private static balanceRepository = balanceRepository
 
   static async getCustomerById(id: string): Promise<ICustomer> {
     const customer = await this.customerRepository.findCustomerById(id)
     return notUndefinedOrNull(customer)
   }
 
-  static async getAllCustomers(): Promise<ICustomer[]> {
-    const users = await this.customerRepository.findAllCustomers()
+  static async getAllCustomers(
+    page: number,
+    limit: number
+  ): Promise<PaginateData<ICustomer>> {
+    const users = await this.customerRepository.findAllCustomers(page, limit)
     return users
   }
 
-  static async updateCustomerById(id: string, customer: ICustomer): Promise<ICustomer> {
-    const userUpdated = await this.customerRepository.updateCustomerById(id, customer)
+  static async updateCustomerById(
+    id: string,
+    customer: ICustomer
+  ): Promise<ICustomer> {
+    const userUpdated = await this.customerRepository.updateCustomerById(
+      id,
+      customer
+    )
 
     return notUndefinedOrNull(userUpdated)
   }
 
   static async deleteCustomerById(id: string): Promise<Boolean> {
-    const userDeleted = await this.customerRepository.deleteCustomerById(id)
-    return notUndefinedOrNull(userDeleted)
+    const customerDeleted = await this.customerRepository.deleteCustomerById(id)
+    return notUndefinedOrNull(customerDeleted)
   }
 
   static async createCustomer(customer: ICustomer): Promise<ICustomer> {
-    const userCreated = await this.customerRepository.createCustomer(customer)
-    return notUndefinedOrNull(userCreated)
+    const initialBalance: IBalance = {
+      id: '',
+      total: 0,
+      payment: [],
+      credit: [],
+    }
+
+    const newBalance = await this.balanceRepository.createBalance(
+      initialBalance
+    )
+
+    if (!newBalance)  throw new ErrorExt('BALANCE_NOT_CREATED', HttpStatus.INTERNAL_SERVER_ERROR)
+
+    customer.balance = newBalance.id
+
+
+    const customerCreated = await this.customerRepository.createCustomer(
+      customer
+    )
+
+    return notUndefinedOrNull(customerCreated)
   }
 
   // ** UTILS
 
   static async isCustomerExistWithEmail(email: string): Promise<Boolean> {
-    const userFount = await this.customerRepository.findCustomerByEmail(email)
-    return userFount ? true : false
+    const customerFount = await this.customerRepository.findCustomerByEmail(
+      email
+    )
+    return customerFount ? true : false
   }
 
   static async isCustomerExistWithId(id: string): Promise<Boolean> {
-    const userFount = await this.customerRepository.findCustomerById(id)
-    return userFount ? true : false
+    const customerFount = await this.customerRepository.findCustomerById(id)
+    return customerFount ? true : false
   }
 }

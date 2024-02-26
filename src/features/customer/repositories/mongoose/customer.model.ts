@@ -1,9 +1,9 @@
 import { ICustomer } from '../../interfaces/customer.interface'
 import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
 import { model, Schema } from 'mongoose'
-
-import { phoneSchema } from '../../../shared/repositories/mongoose/phone.model'
-import { addressSchema } from '../../../shared/repositories/mongoose/address.model'
+import { PersonSchema } from '../../../shared/repositories/mongoose/person.schema'
+import { TeacherSchema } from './teacher.schema'
+import { StudentSchema } from './student.schema'
 
 const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
   {
@@ -19,32 +19,34 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
       type: Boolean,
       default: true,
     },
-    
 
-
-    identificationType: {
+    balance: {
+      ref: 'Balance',
       type: String,
-      trim: true,
-    },
-    identification: {
-      type: String,
-      trim: true,
-    },
-    name: {
-      type: String,
-      trim: true,
     },
 
-    phone: [
-      {
-        type: phoneSchema,
-      },
-    ],
-    address: [
-      {
-        type: addressSchema,
-      },
-    ],
+    typeCustomer: {
+      type: String,
+    },
+
+
+    teacher: {
+      type: TeacherSchema
+    },
+
+    student:{
+      type: StudentSchema
+    },
+
+    parent:{
+
+    },
+
+    notes: [{
+      type: String,
+      trim: true,
+    }]
+
   },
   {
     id: true,
@@ -57,6 +59,8 @@ const CustomerSchema: Schema = new Schema<ICustomer & { _id: string }>(
     versionKey: false,
   }
 )
+
+CustomerSchema.add(PersonSchema)
 
 CustomerSchema.pre('save', async function (next) {
   // Crea un id de ira

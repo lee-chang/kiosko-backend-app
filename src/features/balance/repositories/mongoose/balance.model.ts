@@ -11,11 +11,6 @@ const balanceSchema: Schema = new Schema<IBalance & { _id: string }>(
       unique: true,
       key: true,
     },
-    customer: {
-      type: String,
-      ref: 'Customer',
-      required: true,
-    },
     total: {
       type: Number,
       required: true,

@@ -1,41 +1,59 @@
+import { PaginateData, initialPaginateData } from '../../../../core/interfaces/resPaginate.interface'
 import { ICustomer } from '../../interfaces/customer.interface'
 import { CustomerRepositoryPort } from '../../interfaces/customerRepository.interface'
 import CustomerModel from './customer.model'
 
 export class CustomerRepositoryMongoDB implements CustomerRepositoryPort {
-  async createCustomer(user: ICustomer) {
-    const userCreated = await CustomerModel.create(user)
-    return userCreated
+  async createCustomer(customer: ICustomer) {
+    const customerCreated = await CustomerModel.create(customer)
+    return customerCreated
   }
 
-  async findAllCustomers() {
-    const users = await CustomerModel.find()
-    if (!users) {
-      return []
-    }
+  async findAllCustomers( page: number,
+    limit: number) {
+      const totalRoles = await CustomerModel.countDocuments()
 
-    return users
+      const totalPages = Math.ceil(totalRoles / limit)
+  
+      const currentPage = page > totalPages ? totalPages : page || 1
+  
+      const customer = await CustomerModel.find()
+        .limit(limit)
+        .skip((page - 1) * limit)
+        .exec()
+  
+      if (!customer) {
+        return initialPaginateData
+      }
+  
+      let response: PaginateData<ICustomer> = {
+        total: totalRoles,
+        totalPages,
+        currentPage,
+        data: customer,
+      }
+      return response
   }
 
   async findCustomerById(id: string) {
-    const user = await CustomerModel.findById(id)
-    if (!user) {
+    const customer = await CustomerModel.findById(id)
+    if (!customer) {
       return null
     }
-    return user
+    return customer
   }
 
   async findCustomerByEmail(email: string) {
-    const user = await CustomerModel.findOne({ email })
-    if (!user) {
+    const customer = await CustomerModel.findOne({ email })
+    if (!customer) {
       return null
     }
 
-    return user
+    return customer
   }
 
-  async updateCustomerById(id: string, user: ICustomer) {
-    const updateUser = await CustomerModel.findByIdAndUpdate(id, user, {
+  async updateCustomerById(id: string, customer: ICustomer) {
+    const updateUser = await CustomerModel.findByIdAndUpdate(id, customer, {
       new: true,
     })
 

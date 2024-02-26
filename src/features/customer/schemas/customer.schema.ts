@@ -1,31 +1,55 @@
 import z, { Schema } from 'zod'
-import { ICustomer } from '../interfaces/customer.interface'
+import {
+  ICustomer,
+  IParent,
+  IStudent,
+  ITeacher,
+  LevelCollege,
+  TypeCustomer,
+} from '../interfaces/customer.interface'
 
 import { addressSchema } from '../../shared/schemas/address.schema'
 import { phoneSchema } from '../../shared/schemas/phone.schema'
+import { personSchema } from '../../shared/schemas/person.schema'
 
 // Hacer uso de la interfaz IUser
 
-const roleSchema = z.array((z.string()))
-const passwordSchema = z.string().min(3).max(255)
+const teacherSchema = z.object({
+  courses: z.array(z.string()),
+  isMentor: z.boolean(),
+  level: z.nativeEnum(LevelCollege),
+  grade: z.string(), // -> Grado de mentor
+  section: z.string(), // -> Sección de mentor
+  specialty: z.string(), // -> Especialidad
+}) satisfies z.ZodType<ITeacher>
 
 
-const customerSchema = z.object({
-  userName: z.string().min(3).max(255),
-  email: z.string().email().min(3).max(255),
-  password: passwordSchema,
-  verified: z.boolean().optional(),
-  fullName: z.string().min(3).max(255).optional(),
-  login_code: z.string().min(3).max(255).optional(),
-  phone: z.array(phoneSchema).optional(),
-  address: z.array(addressSchema).optional(),
-  role: roleSchema.optional(), 
-})
+const studentSchema = z.object({
+  level: z.nativeEnum(LevelCollege),
+  grade: z.number(),
+  section: z.string(),
+}) satisfies z.ZodType<IStudent>
 
+const parentSchema = z.object({
+  isParent: z.boolean(),
+  child: z.array(z.string()),
+}) satisfies z.ZodType<IParent>
+
+
+const customerSchema = personSchema.extend({
+  id: z.string(),
+  isIndependent: z.boolean(),
+  balance: z.string(),
+  typeCustomer: z.nativeEnum(TypeCustomer),
+
+  teacher: teacherSchema.partial().optional(),
+  student: studentSchema.partial().optional(),
+  parent: parentSchema.optional(),
+
+  notes: z.array(z.string()).optional(),
+}) satisfies z.ZodType<ICustomer>
 
 export const CustomerSchema = {
-  Create: customerSchema,
-  Update: customerSchema.omit({ password: true, role: true }).partial(),
-  Updaterole: customerSchema.pick({ role: true }),
-  UpdatePassword: customerSchema.pick({ password: true }),
+  Create: customerSchema.omit({ id: true }),
+  Update: customerSchema.omit({ id: true }).partial(),
 }

@@ -13,26 +13,26 @@ const router = Router()
 router.get(
   '/',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_CREDIT),
   CreditController.getCredits
 )
 router.get(
   '/:id',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_CREDIT),
   CreditController.getCredit
 )
 
 router.delete(
   '/:id',
   authRequired,
-  validatePermission(Permission.DELETE_ROLE),
+  validatePermission(Permission.DELETE_CREDIT),
   CreditController.deleteCredit
 )
 router.post(
   '/',
   authRequired,
-  validatePermission(Permission.CREATE_ROLE),
+  validatePermission(Permission.CREATE_CREDIT),
   validatorShema(CreditSchema.Create),
   CreditController.createCredit
 )
@@ -40,7 +40,7 @@ router.post(
 router.patch(
   '/:id',
   authRequired,
-  validatePermission(Permission.UPDATE_ROLE),
+  validatePermission(Permission.UPDATE_CREDIT),
   validatorShema(CreditSchema.Update),
   CreditController.updateCredit
 )

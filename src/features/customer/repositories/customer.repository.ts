@@ -1,20 +1,21 @@
+import { IBalance } from '../../balance/interfaces/balance.interface'
+import { ICustomer } from '../interfaces/customer.interface'
 import { CustomerRepositoryPort } from '../interfaces/customerRepository.interface'
 import { CustomerRepositoryMongoDB } from './mongoose/customer-mongo.repository'
 
 export class CustomerRepository implements CustomerRepositoryPort {
-
   private customerRepository: CustomerRepositoryPort
 
   constructor() {
     this.customerRepository = new CustomerRepositoryMongoDB()
   }
 
-  async createCustomer(user: any) {
-    return await this.customerRepository.createCustomer(user)
+  async createCustomer(customer: ICustomer) {
+    return await this.customerRepository.createCustomer(customer)
   }
 
-  async findAllCustomers() {
-    return await this.customerRepository.findAllCustomers()
+  async findAllCustomers(page: number, limit: number) {
+    return await this.customerRepository.findAllCustomers(page, limit)
   }
 
   async findCustomerById(id: string) {
@@ -25,11 +26,15 @@ export class CustomerRepository implements CustomerRepositoryPort {
     return await this.customerRepository.findCustomerByEmail(email)
   }
 
-  async updateCustomerById(id: string, user: any) {
-    return await this.customerRepository.updateCustomerById(id, user)
+  async updateCustomerById(id: string, customer: ICustomer) {
+    return await this.customerRepository.updateCustomerById(id, customer)
   }
 
   async deleteCustomerById(id: string) {
     return await this.customerRepository.deleteCustomerById(id)
   }
+
+ //** EXTRAS
+
+
 }

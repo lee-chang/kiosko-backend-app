@@ -13,26 +13,26 @@ const router = Router()
 router.get(
   '/',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_BALANCE),
   BalanceController.getBalances
 )
 router.get(
   '/:id',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_BALANCE),
   BalanceController.getBalance
 )
 
 router.delete(
   '/:id',
   authRequired,
-  validatePermission(Permission.DELETE_ROLE),
+  validatePermission(Permission.DELETE_BALANCE),
   BalanceController.deleteBalance
 )
 router.post(
   '/',
   authRequired,
-  validatePermission(Permission.CREATE_ROLE),
+  validatePermission(Permission.CREATE_BALANCE),
   validatorShema(BalanceSchema.Create),
   BalanceController.createBalance
 )
@@ -40,7 +40,7 @@ router.post(
 router.patch(
   '/:id',
   authRequired,
-  validatePermission(Permission.UPDATE_ROLE),
+  validatePermission(Permission.UPDATE_BALANCE),
   validatorShema(BalanceSchema.Update),
   BalanceController.updateBalance
 )

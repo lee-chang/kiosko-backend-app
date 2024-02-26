@@ -22,10 +22,11 @@ const userSuperAdmin: IAuthCredentials = {
 const roleSuperAdmin: IRole = {
   id: '', // -> Se crea automaticamente
   name: 'SuperAdmin',
+  description: 'Super Admin role',
   permissions: ['ALL_PERMISSIONS'],
+  authorizations:[],
   by: TypePerson.user,
   users: [],
-  description: 'Super Admin role',
   isActive: true,
 }
 

@@ -15,6 +15,6 @@ const balanceSchema = z.object({
 }) satisfies z.ZodType<IBalance>
 
 export const BalanceSchema = {
-  Create: balanceSchema.omit({ id: true, createdAt: true, updatedAt: true }),
+  Create: balanceSchema.omit({ id: true }),
   Update: balanceSchema.partial().omit({ id: true, createdAt: true, updatedAt: true }),
 }

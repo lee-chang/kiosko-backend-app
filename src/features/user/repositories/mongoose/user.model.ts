@@ -1,9 +1,8 @@
-import { IUser } from '../../interfaces/user.interface'
-import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
 import { model, Schema } from 'mongoose'
+import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
+import { IUser } from '../../interfaces/user.interface'
 
-import { phoneSchema } from '../../../shared/repositories/mongoose/phone.model'
-import { addressSchema } from '../../../shared/repositories/mongoose/address.model'
+import { PersonSchema } from '../../../shared/repositories/mongoose/person.schema'
 
 
 const UserSchema: Schema = new Schema<IUser & {_id:string}>(
@@ -16,15 +15,6 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
       unique: true,
       key: true      
     },
-    identificationType: {
-      type: String,
-      trim: true,
-    },
-    identification: {
-      type: String,
-      trim: true,
-    },
-
     userName: {
       type: String,
       trim: true,
@@ -43,20 +33,6 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
       {
         type: String,
         ref: 'Role',
-      },
-    ],
-    name: {
-      type: String,
-      trim: true,
-    },
-    phone: [
-      {
-        type: phoneSchema,
-      },
-    ],
-    address: [
-      {
-        type: addressSchema,
       },
     ],
     verified: {
@@ -87,6 +63,8 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
     versionKey: false,
   }
 )
+
+UserSchema.add(PersonSchema)
 
 UserSchema.pre('save', async function(next) {
   // Crea un id de ira

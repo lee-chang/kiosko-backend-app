@@ -13,36 +13,35 @@ const router = Router()
 router.get(
   '/',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_PAYMENT),
   PaymentController.getPayments
 )
 router.get(
   '/:id',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_PAYMENT),
   PaymentController.getPayment
+)
+router.post(
+  '/',
+  authRequired,
+  validatePermission(Permission.CREATE_PAYMENT),
+  validatorShema(PaymentSchema.Create),
+  PaymentController.createPayment
+)
+router.patch(
+  '/:id',
+  authRequired,
+  validatePermission(Permission.UPDATE_PAYMENT),
+  validatorShema(PaymentSchema.Update),
+  PaymentController.updatePayment
 )
 
 router.delete(
   '/:id',
   authRequired,
-  validatePermission(Permission.DELETE_ROLE),
+  validatePermission(Permission.DELETE_PAYMENT),
   PaymentController.deletePayment
-)
-router.post(
-  '/',
-  authRequired,
-  validatePermission(Permission.CREATE_ROLE),
-  validatorShema(PaymentSchema.Create),
-  PaymentController.createPayment
-)
-
-router.patch(
-  '/:id',
-  authRequired,
-  validatePermission(Permission.UPDATE_ROLE),
-  validatorShema(PaymentSchema.Update),
-  PaymentController.updatePayment
 )
 
 export default router

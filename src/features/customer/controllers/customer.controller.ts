@@ -5,19 +5,22 @@ import { CustomerService } from '../services/customer.service'
 export class CustomerControlller {
 
   static async createCustomer(req: Request, res: Response,next:NextFunction) {
-    const user = req.body
+    const customer = req.body
     try {
-      const userCreated = await CustomerService.createCustomer(user)
-      return res.status(HttpStatus.CREATED).send(userCreated)
+      const customerCreated = await CustomerService.createCustomer(customer)
+      return res.status(HttpStatus.CREATED).send(customerCreated)
     } catch (err) {
       next(err)
     }
   }
 
   static async getCustomers(req: Request, res: Response,next:NextFunction) {
+    let page = Number(req.query.page) || 1
+    let limit = Number(req.query.limit) || Infinity
+    
     try {
-      const users = await CustomerService.getAllCustomers()
-      return res.status(HttpStatus.OK).send(users)
+      const customers = await CustomerService.getAllCustomers(page, limit)
+      return res.status(HttpStatus.OK).send(customers)
     } catch (err) {
       // console.log(err)
       next(err)
@@ -28,8 +31,8 @@ export class CustomerControlller {
     const { id } = req.params
 
     try {
-      const user = await CustomerService.getCustomerById(id)
-      return res.status(HttpStatus.OK).send(user)
+      const customer = await CustomerService.getCustomerById(id)
+      return res.status(HttpStatus.OK).send(customer)
     } catch (err) {
       next(err)
     }
@@ -37,10 +40,10 @@ export class CustomerControlller {
 
   static async updateCustomer(req: Request, res: Response,next:NextFunction) {
     const { id } = req.params
-    const user = req.body
+    const customer = req.body
     try {
-      const userUpdated = await CustomerService.updateCustomerById(id, user)
-      return res.status(HttpStatus.OK).send(userUpdated)
+      const customerUpdated = await CustomerService.updateCustomerById(id, customer)
+      return res.status(HttpStatus.OK).send(customerUpdated)
     } catch (err) {
       next(err)
     }
@@ -49,8 +52,8 @@ export class CustomerControlller {
   static async deleteCustomer(req: Request, res: Response,next:NextFunction) {
     const { id } = req.params
     try {
-      const userDeleted = await CustomerService.deleteCustomerById(id)
-      return res.status(HttpStatus.OK).send(userDeleted)
+      const customerDeleted = await CustomerService.deleteCustomerById(id)
+      return res.status(HttpStatus.OK).send(customerDeleted)
     } catch (err) {
       next(err)
     }

@@ -13,26 +13,19 @@ const router = Router()
 router.get(
   '/',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_PRODUCT),
   ProductController.getProducts
 )
 router.get(
   '/:id',
   authRequired,
-  validatePermission(Permission.READ_ROLE),
+  validatePermission(Permission.READ_PRODUCT),
   ProductController.getProduct
-)
-
-router.delete(
-  '/:id',
-  authRequired,
-  validatePermission(Permission.DELETE_ROLE),
-  ProductController.deleteProduct
 )
 router.post(
   '/',
   authRequired,
-  validatePermission(Permission.CREATE_ROLE),
+  validatePermission(Permission.CREATE_PRODUCT),
   validatorShema(ProductSchema.Create),
   ProductController.createProduct
 )
@@ -40,9 +33,14 @@ router.post(
 router.patch(
   '/:id',
   authRequired,
-  validatePermission(Permission.UPDATE_ROLE),
+  validatePermission(Permission.UPDATE_PRODUCT),
   validatorShema(ProductSchema.Update),
   ProductController.updateProduct
 )
-
+router.delete(
+  '/:id',
+  authRequired,
+  validatePermission(Permission.DELETE_PRODUCT),
+  ProductController.deleteProduct
+)
 export default router

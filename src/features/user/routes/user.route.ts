@@ -45,7 +45,6 @@ router.patch(
   validatePermission(Permission.UPDATE_USER),
   UserControlller.updateUserPassword
 )
-
 router.delete(
   '/:id',
   authRequired,
