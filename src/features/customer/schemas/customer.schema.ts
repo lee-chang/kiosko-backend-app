@@ -1,3 +1,5 @@
+
+
 import z, { Schema } from 'zod'
 import {
   IChild,
@@ -26,9 +28,9 @@ const teacherSchema = z.object({
 
 
 const studentSchema = z.object({
-  level: z.nativeEnum(LevelCollege),
-  grade: z.number(),
-  section: z.string(),
+  level: z.nativeEnum(LevelCollege).optional(),
+  grade: z.number().optional(),
+  section: z.string().optional(),
 }) satisfies z.ZodType<IStudent>
 
 
@@ -51,7 +53,7 @@ const customerSchema = personSchema.extend({
   typeCustomer: z.nativeEnum(TypeCustomer),
 
   teacher: teacherSchema.partial().optional(),
-  student: studentSchema.partial().optional(),
+  student: studentSchema.optional(),
   parent: parentSchema.optional(),
 
   notes: z.array(z.string()).optional(),

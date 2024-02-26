@@ -14,6 +14,8 @@ import OrderRouter from './features/order/routes/order.route'
 import CreditRouter from './features/credit/routes/credit.route'
 import BalanceRouter from './features/balance/routes/balance.route'
 
+import CSCRouter from './features/common/country-state-city/routes/csc.route'
+
 const route = new RouterPath()
 
 const router = Router()
@@ -24,13 +26,15 @@ router.use(route.getApiPath('user'), UserRouter)
 router.use(route.getApiPath('role'), RoleRouter)
 router.use(route.getApiPath('permission'), PermissionRouter)
 
-
 //Rutas para el kiosko
-router.use(route.getApiPath('company'),CompanyRouter)
-router.use(route.getApiPath('product'),ProductRouter)
-router.use(route.getApiPath('payment'),PaymentRouter)
-router.use(route.getApiPath('order'),OrderRouter)
-router.use(route.getApiPath('credit'),CreditRouter)
-router.use(route.getApiPath('balance'),BalanceRouter)
+router.use(route.getApiPath('company'), CompanyRouter)
+router.use(route.getApiPath('product'), ProductRouter)
+router.use(route.getApiPath('payment'), PaymentRouter)
+router.use(route.getApiPath('order'), OrderRouter)
+router.use(route.getApiPath('credit'), CreditRouter)
+router.use(route.getApiPath('balance'), BalanceRouter)
+
+// Rutas common
+router.use(route.getApiPath('common/csc'), CSCRouter) // Country State City
 
 export default router
