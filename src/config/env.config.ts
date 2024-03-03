@@ -46,16 +46,29 @@ const SMTP_ALIAS =
 const JWT_SECRET =
   process.env.JWT_SECRET === undefined ? 'token' : process.env.JWT_SECRET
 
-const JWT_SECRET_REFRESH_TOKEN = process.env.JWT_SECRET_REFRESH_TOKEN === undefined ? 'tokenrefresh' : process.env.JWT_SECRET_REFRESH_TOKEN
+const JWT_SECRET_REFRESH_TOKEN =  process.env.JWT_SECRET_REFRESH_TOKEN === undefined
+    ? 'tokenrefresh'
+    : process.env.JWT_SECRET_REFRESH_TOKEN
 
-
-const NAME_STORAGE_TOKEN_JWT =
-  process.env.NAME_STORAGE_TOKEN_JWT === undefined
+const NAME_STORAGE_TOKEN_JWT =  process.env.NAME_STORAGE_TOKEN_JWT === undefined
     ? ''
     : process.env.NAME_STORAGE_TOKEN_JWT
 
+// API CURRENCY
 const API_CURRENCY =
   process.env.API_CURRENCY === undefined ? '' : process.env.API_CURRENCY
+
+// API IMAGES CLOUDINARY
+const CLOUDINARY_CLOUD_NAME =  process.env.CLOUDINARY_CLOUD_NAME === undefined
+    ? ''
+    : process.env.CLOUDINARY_CLOUD_NAME
+const CLOUDINARY_API_KEY =  process.env.CLOUDINARY_API_KEY === undefined
+    ? ''
+    : process.env.CLOUDINARY_API_KEY
+
+const CLOUDINARY_API_SECRET =  process.env.CLOUDINARY_API_SECRET === undefined
+    ? ''
+    : process.env.CLOUDINARY_API_SECRET
 
 
 export const ENV_CONFIG = {
@@ -74,5 +87,8 @@ export const ENV_CONFIG = {
   JWT_SECRET,
   JWT_SECRET_REFRESH_TOKEN,
   NAME_STORAGE_TOKEN_JWT,
-  API_CURRENCY
+  API_CURRENCY,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET
 }

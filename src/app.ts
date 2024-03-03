@@ -8,6 +8,7 @@ import { connect as connectMongoDB } from './config/mongoose.config'
 import { ErrorMiddleware } from './core/middleware/errorHandler.middleware'
 import { corsMiddleware } from './core/middleware/cors.middleware'
 import setupInitial from './config/setupInit.config'
+import { FileUploadMiddleware } from './core/middleware/fileupdaload.middleware'
 
 const app: Express = express()
 
@@ -21,9 +22,13 @@ app.disable('x-powered-by')
 // * CORS
 app.use(corsMiddleware())
 
+
 // * Content Type Config
 app.use(express.urlencoded({ extended: true, limit: '50mb' }))
 app.use(express.json({ limit: '50mb' }))
+
+// * File Upload
+app.use(FileUploadMiddleware)
 
 // * Routes
 app.use(router)

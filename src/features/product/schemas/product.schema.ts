@@ -7,8 +7,10 @@ const productSchema = z.object({
   name: z.string(),
   description: z.string(),
   reference_price: z.number(),
-
-  image: z.string().optional(),
+  image: z.object({
+    secure_url: z.string(),
+    public_id: z.string(),
+  }).optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 }) satisfies z.ZodType<IProduct>

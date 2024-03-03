@@ -23,7 +23,8 @@ const productSchema: Schema = new Schema<IProduct & { _id: string }>(
       type: Number,
     },
     image: {
-      type: String,
+      secure_url: String,
+      public_id: String
     },
   },
   {
