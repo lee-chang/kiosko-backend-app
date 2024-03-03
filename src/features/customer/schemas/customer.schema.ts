@@ -1,5 +1,3 @@
-
-
 import z, { Schema } from 'zod'
 import {
   IChild,
@@ -18,33 +16,29 @@ import { personSchema } from '../../shared/schemas/person.schema'
 // Hacer uso de la interfaz IUser
 
 const teacherSchema = z.object({
-  courses: z.array(z.string()),
+  courses: z.string(),
   isMentor: z.boolean(),
   level: z.nativeEnum(LevelCollege),
   grade: z.string(), // -> Grado de mentor
   section: z.string(), // -> Sección de mentor
-  specialty: z.string(), // -> Especialidad
 }) satisfies z.ZodType<ITeacher>
-
 
 const studentSchema = z.object({
   level: z.nativeEnum(LevelCollege).optional(),
-  grade: z.number().optional(),
+  grade: z.string().optional(),
   section: z.string().optional(),
 }) satisfies z.ZodType<IStudent>
 
-
 const childSchema = personSchema.extend({
   level: z.nativeEnum(LevelCollege).optional(),
-  grade: z.number().optional(),
+  grade: z.string().optional(),
   section: z.string().optional(),
 }) satisfies z.ZodType<IChild>
 
 const parentSchema = z.object({
-  isParent: z.boolean(),
-  child: z.array(childSchema),
+  isParent: z.boolean().optional(),
+  child: z.array(childSchema).optional(),
 }) satisfies z.ZodType<IParent>
-
 
 const customerSchema = personSchema.extend({
   id: z.string(),
@@ -55,11 +49,21 @@ const customerSchema = personSchema.extend({
   teacher: teacherSchema.partial().optional(),
   student: studentSchema.optional(),
   parent: parentSchema.optional(),
-
-  notes: z.array(z.string()).optional(),
 }) satisfies z.ZodType<ICustomer>
+
+
+const getAllCustomersSchema = z.object({
+  query: z.object({
+    name: z.string().optional(),
+    page: z.string().optional(),
+    limit: z.string().optional(),
+    sort: z.string().optional(),
+    fields: z.string().optional(),
+  }),
+})
 
 export const CustomerSchema = {
   Create: customerSchema.omit({ id: true }),
   Update: customerSchema.omit({ id: true }).partial(),
+  GetAll: getAllCustomersSchema,
 }

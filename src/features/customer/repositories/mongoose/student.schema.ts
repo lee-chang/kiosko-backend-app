@@ -6,7 +6,7 @@ export const StudentSchema = new Schema<IStudent>({
     type: String,
   },
   grade: {
-    type: Number,
+    type: String,
   },
   section: {
     type: String,

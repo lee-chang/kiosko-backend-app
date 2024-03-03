@@ -24,37 +24,35 @@ export interface ICustomer extends IPerson {
 }
 
 export interface IParent {
-  isParent: boolean
+  isParent?: boolean
   child?: IChild[]
 }
 
 export interface IChild extends IPerson,IStudent {}
 
 export interface ITeacher {
-  courses?: string[] // -> Nombre de los cursos
+  courses?: string // -> Nombre de los cursos
   isMentor?: boolean
   level?: LevelCollege
   grade?: string // -> Grado de mentor
   section?: string // -> Sección de mentor
-  specialty?: string // -> Especialidad
 }
 
 export interface IStudent {
   level?: LevelCollege // -> Nivel
-  grade?: number // -> Grado
+  grade?: string // -> Grado
   section?: string // -> Sección
 }
 
 export enum LevelCollege {
-  primary = 'primary',
-  secondary = 'secondary',
-  initial = 'initial',
-  other = 'other',
+  primary = 'Primaria',
+  secondary = 'Secundaria',
+  initial = 'Inicial',
 }
 
 export enum TypeCustomer {
-  teacher = 'teacher',
-  student = 'student',
-  parent = 'parent',
-  other = 'other',
+  teacher = 'Profesor',
+  student = 'Estudiante',
+  parent = 'Padre',
+  other = 'Otro',
 }

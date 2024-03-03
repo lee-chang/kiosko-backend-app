@@ -4,8 +4,7 @@ import { CustomerService } from '../services/customer.service'
 import { ICustomer } from '../interfaces/customer.interface'
 
 export class CustomerControlller {
-
-  static async createCustomer(req: Request, res: Response,next:NextFunction) {
+  static async createCustomer(req: Request, res: Response, next: NextFunction) {
     const customer = req.body
     try {
       const customerCreated = await CustomerService.createCustomer(customer)
@@ -15,12 +14,24 @@ export class CustomerControlller {
     }
   }
 
-  static async getCustomers(req: Request, res: Response,next:NextFunction) {
+  static async getCustomers(req: Request, res: Response, next: NextFunction) {
     let page = Number(req.query.page) || 1
     let limit = Number(req.query.limit) || Infinity
-    
+
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach(el => delete queryObj[el]);
+   
+    // Advanced filtering
+    let queryStr = JSON.stringify(queryObj);
+   
+   //Replaced string gte to $gte
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+
+    console.log('queryStr', queryStr)
+
     try {
-      const customers = await CustomerService.getAllCustomers(page, limit)
+      const customers = await CustomerService.getAllCustomers(page, limit,queryStr)
       return res.status(HttpStatus.OK).send(customers)
     } catch (err) {
       // console.log(err)
@@ -28,7 +39,7 @@ export class CustomerControlller {
     }
   }
 
-  static async getCustomer(req: Request, res: Response,next:NextFunction) {
+  static async getCustomer(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
 
     try {
@@ -39,18 +50,21 @@ export class CustomerControlller {
     }
   }
 
-  static async updateCustomer(req: Request, res: Response,next:NextFunction) {
+  static async updateCustomer(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
     const customer: ICustomer = req.body
     try {
-      const customerUpdated = await CustomerService.updateCustomerById(id, customer)
+      const customerUpdated = await CustomerService.updateCustomerById(
+        id,
+        customer
+      )
       return res.status(HttpStatus.OK).send(customerUpdated)
     } catch (err) {
       next(err)
     }
   }
 
-  static async deleteCustomer(req: Request, res: Response,next:NextFunction) {
+  static async deleteCustomer(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
     try {
       const customerDeleted = await CustomerService.deleteCustomerById(id)
@@ -59,5 +73,4 @@ export class CustomerControlller {
       next(err)
     }
   }
-
 }

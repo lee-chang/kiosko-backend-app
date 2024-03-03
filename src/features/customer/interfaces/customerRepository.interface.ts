@@ -5,7 +5,8 @@ export interface CustomerRepositoryPort {
   createCustomer(user: ICustomer): Promise<ICustomer>
   findAllCustomers(
     page: number,
-    limit: number
+    limit: number,
+    queryS: string
   ): Promise<PaginateData<ICustomer>>
   findCustomerById(id: string): Promise<ICustomer | null>
   findCustomerByEmail(email: string): Promise<ICustomer | null>

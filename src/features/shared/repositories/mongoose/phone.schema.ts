@@ -4,11 +4,11 @@ import { IPhone } from '../../interfaces/phone.interface'
 
 export const phoneSchema: Schema = new Schema<IPhone>({
   code: {
-    type: Number,
+    type: String,
     required: true,
   },
   number: {
-    type: Number,
+    type: String,
     required: true,
   },
 })

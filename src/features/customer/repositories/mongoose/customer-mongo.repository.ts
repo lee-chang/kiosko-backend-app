@@ -1,4 +1,7 @@
-import { PaginateData, initialPaginateData } from '../../../../core/interfaces/resPaginate.interface'
+import {
+  PaginateData,
+  initialPaginateData,
+} from '../../../../core/interfaces/resPaginate.interface'
 import { ICustomer } from '../../interfaces/customer.interface'
 import { CustomerRepositoryPort } from '../../interfaces/customerRepository.interface'
 import CustomerModel from './customer.model'
@@ -9,30 +12,30 @@ export class CustomerRepositoryMongoDB implements CustomerRepositoryPort {
     return customerCreated
   }
 
-  async findAllCustomers( page: number,
-    limit: number) {
-      const totalRoles = await CustomerModel.countDocuments()
+  async findAllCustomers(page: number, limit: number, queryStr: string) {
+    const total = await CustomerModel.countDocuments(JSON.parse(queryStr))
+    
+    const totalPages = Math.ceil(total / limit)
 
-      const totalPages = Math.ceil(totalRoles / limit)
-  
-      const currentPage = page > totalPages ? totalPages : page || 1
-  
-      const customer = await CustomerModel.find()
-        .limit(limit)
-        .skip((page - 1) * limit)
-        .exec()
-  
-      if (!customer) {
-        return initialPaginateData
-      }
-  
-      let response: PaginateData<ICustomer> = {
-        total: totalRoles,
-        totalPages,
-        currentPage,
-        data: customer,
-      }
-      return response
+    const currentPage = page > totalPages ? totalPages : page || 1
+    
+    const customer = await CustomerModel.find()
+      .limit(limit)
+      .skip((page - 1) * limit)
+      .where(JSON.parse(queryStr))
+      .exec()
+
+    if (!customer) {
+      return initialPaginateData
+    }
+
+    let response: PaginateData<ICustomer> = {
+      total: total,
+      totalPages,
+      currentPage,
+      data: customer,
+    }
+    return response
   }
 
   async findCustomerById(id: string) {

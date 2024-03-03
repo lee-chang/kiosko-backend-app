@@ -1,3 +1,4 @@
+import { query } from 'express'
 import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
 import { PaginateData } from '../../../core/interfaces/resPaginate.interface'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
@@ -23,9 +24,10 @@ export class CustomerService {
 
   static async getAllCustomers(
     page: number,
-    limit: number
+    limit: number,
+    queryStr: string
   ): Promise<PaginateData<ICustomer>> {
-    const users = await this.customerRepository.findAllCustomers(page, limit)
+    const users = await this.customerRepository.findAllCustomers(page, limit, queryStr)
     return users
   }
 

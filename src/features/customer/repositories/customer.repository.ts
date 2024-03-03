@@ -14,8 +14,8 @@ export class CustomerRepository implements CustomerRepositoryPort {
     return await this.customerRepository.createCustomer(customer)
   }
 
-  async findAllCustomers(page: number, limit: number) {
-    return await this.customerRepository.findAllCustomers(page, limit)
+  async findAllCustomers(page: number, limit: number, queryStr:string) {
+    return await this.customerRepository.findAllCustomers(page, limit, queryStr)
   }
 
   async findCustomerById(id: string) {
