@@ -5,7 +5,7 @@ import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-re
 import { ErrorExt } from '../../../core/utils/http.response.util'
 import { KeyPermissionsType } from '../../../core/interfaces/permissions'
 import { FileArray, UploadedFile } from 'express-fileupload'
-import { uploadImage } from '../../../core/utils/cloudinary.util'
+import { deleteImage, uploadImage } from '../../../core/utils/cloudinary.util'
 import fs from 'fs-extra'
 
 const productRepository = new ProductRepository()
@@ -35,6 +35,9 @@ export class ProductSevice {
     const product = await productRepository.findProductById(id)
     if (!product)
       throw new ErrorExt('PRODUCT_NOT_EXIST', HttpStatus.BAD_REQUEST)
+
+    if (product.image) await deleteImage(product.image.public_id)
+
     const productDeleted = await productRepository.deleteProductById(id)
     return notUndefinedOrNull(productDeleted)
   }
