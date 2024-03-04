@@ -19,6 +19,9 @@ const productSchema: Schema = new Schema<IProduct & { _id: string }>(
     description: {
       type: String,
     },
+    category: {
+      type: String,
+    },
     reference_price: {
       type: String,
     },

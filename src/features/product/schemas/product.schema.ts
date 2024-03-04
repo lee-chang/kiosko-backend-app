@@ -11,6 +11,7 @@ const productSchema = z.object({
     if (isNaN(Number(val))) return false
     return true
   }),
+  category: z.string().optional(),
   image: z
     .custom<FileList>()
     .transform((val) => {
