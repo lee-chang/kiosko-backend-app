@@ -8,7 +8,7 @@ import { connect as connectMongoDB } from './config/mongoose.config'
 import { ErrorMiddleware } from './core/middleware/errorHandler.middleware'
 import { corsMiddleware } from './core/middleware/cors.middleware'
 import setupInitial from './config/setupInit.config'
-import { FileUploadMiddleware } from './core/middleware/fileupdaload.middleware'
+import { FileUploadMiddleware } from './core/middleware/fileUpdaload.middleware'
 
 const app: Express = express()
 

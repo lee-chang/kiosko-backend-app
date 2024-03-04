@@ -6,7 +6,7 @@ import { ErrorExt } from '../../../core/utils/http.response.util'
 import { KeyPermissionsType } from '../../../core/interfaces/permissions'
 import { FileArray, UploadedFile } from 'express-fileupload'
 import { uploadImage } from '../../../core/utils/cloudinary.util'
-import fs from 'fs'
+import fs from 'fs-extra'
 
 const productRepository = new ProductRepository()
 
