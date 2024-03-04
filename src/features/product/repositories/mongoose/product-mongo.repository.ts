@@ -55,4 +55,9 @@ export class ProductRepositoryMongoDB implements ProductRepositoryPort {
     const deleteProduct = await ProductModel.findByIdAndDelete(id)
     return deleteProduct ? true : false
   }
+
+  async findProductByName(name: string) {
+    const product = await ProductModel.findOne({ name })
+    return product
+  }
 }

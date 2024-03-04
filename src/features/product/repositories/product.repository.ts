@@ -32,4 +32,9 @@ export class ProductRepository implements ProductRepositoryPort {
   async deleteProductById(id: string): Promise<Boolean> {
     return await this.productRepository.deleteProductById(id)
   }
+
+
+  async findProductByName(name: string): Promise<IProduct | null> {
+    return await this.productRepository.findProductByName(name)
+  }
 }

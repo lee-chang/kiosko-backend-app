@@ -27,10 +27,14 @@ export class ProductController {
     }
   }
 
-    static async createProduct(req: Request, res: Response, next: NextFunction) {
+  static async createProduct(req: Request, res: Response, next: NextFunction) {
     const product: IProduct = req.body
+
     try {
-      const newProduct = await ProductSevice.createProduct(product)
+      const newProduct = await ProductSevice.createProduct(
+        product,
+        req.files ?? undefined
+      )
       res.status(HttpStatus.OK).json(newProduct)
     } catch (err) {
       next(err)
