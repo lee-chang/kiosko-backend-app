@@ -26,7 +26,7 @@ export class CustomerRepository implements CustomerRepositoryPort {
     return await this.customerRepository.findCustomerByEmail(email)
   }
 
-  async updateCustomerById(id: string, customer: ICustomer) {
+  async updateCustomerById(id: string, customer: Partial<ICustomer>) {
     return await this.customerRepository.updateCustomerById(id, customer)
   }
 

@@ -2,7 +2,7 @@ import { PaginateData } from '../../../core/interfaces/resPaginate.interface'
 import { ICustomer } from './customer.interface'
 
 export interface CustomerRepositoryPort {
-  createCustomer(user: ICustomer): Promise<ICustomer>
+  createCustomer(customer: ICustomer): Promise<ICustomer>
   findAllCustomers(
     page: number,
     limit: number,
@@ -10,6 +10,6 @@ export interface CustomerRepositoryPort {
   ): Promise<PaginateData<ICustomer>>
   findCustomerById(id: string): Promise<ICustomer | null>
   findCustomerByEmail(email: string): Promise<ICustomer | null>
-  updateCustomerById(id: string, user: ICustomer): Promise<ICustomer | null>
+  updateCustomerById(id: string, customer: Partial<ICustomer>): Promise<ICustomer | null>
   deleteCustomerById(id: string): Promise<Boolean>
 }

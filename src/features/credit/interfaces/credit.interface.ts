@@ -1,14 +1,23 @@
 
+export interface IProductSale {
+
+  product: string // -> product id
+  
+  quantity: number
+  price: number
+  total: number
+}
+
 export interface ICredit {
   id: string
-
-  order: string // -> order id
   
-  customer: string // -> customer id
+  balance: string // -> customer id
+  staff: string // -> staff id
+  
+  amount: number; // Monto del crédito
   
   status: CreditStatus
-  amount: number; // Monto del crédito
-  staff: string // -> staff id
+  products: IProductSale[]
 
   observation?: string
   createdAt?: Date

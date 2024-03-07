@@ -27,7 +27,11 @@ export class CustomerService {
     limit: number,
     queryStr: string
   ): Promise<PaginateData<ICustomer>> {
-    const users = await this.customerRepository.findAllCustomers(page, limit, queryStr)
+    const users = await this.customerRepository.findAllCustomers(
+      page,
+      limit,
+      queryStr
+    )
     return users
   }
 
@@ -35,16 +39,14 @@ export class CustomerService {
     id: string,
     customer: ICustomer
   ): Promise<ICustomer> {
-      console.log('id', id)
-      console.log('customer', customer)
+    console.log('id', id)
+    console.log('customer', customer)
 
-
-      const userUpdated = await this.customerRepository.updateCustomerById(
-        id,
-        customer
-      )
-      return notUndefinedOrNull(userUpdated)
-
+    const userUpdated = await this.customerRepository.updateCustomerById(
+      id,
+      customer
+    )
+    return notUndefinedOrNull(userUpdated)
   }
 
   static async deleteCustomerById(id: string): Promise<Boolean> {
@@ -53,9 +55,13 @@ export class CustomerService {
   }
 
   static async createCustomer(customer: ICustomer): Promise<ICustomer> {
+    const customerCreated = await this.customerRepository.createCustomer(
+      customer
+    )
     const initialBalance: IBalance = {
       id: '',
       total: 0,
+      customer: customerCreated.id,
       payment: [],
       credit: [],
     }
@@ -70,11 +76,16 @@ export class CustomerService {
         HttpStatus.INTERNAL_SERVER_ERROR
       )
 
-    customer.balance = newBalance.id
-
-    const customerCreated = await this.customerRepository.createCustomer(
-      customer
+    const customerUpdate = await this.customerRepository.updateCustomerById(
+      customerCreated.id,
+      { balance: newBalance.id}
     )
+
+    if (!customerUpdate)
+      throw new ErrorExt(
+        'CUSTOMER_NOT_UPDATED',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
 
     return notUndefinedOrNull(customerCreated)
   }

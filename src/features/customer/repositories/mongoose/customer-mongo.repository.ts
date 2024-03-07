@@ -55,7 +55,7 @@ export class CustomerRepositoryMongoDB implements CustomerRepositoryPort {
     return customer
   }
 
-  async updateCustomerById(id: string, customer: ICustomer) {
+  async updateCustomerById(id: string, customer: Partial<ICustomer>) {
     const updateUser = await CustomerModel.findByIdAndUpdate(id, customer, {
       new: true,
     })

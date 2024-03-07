@@ -16,6 +16,7 @@ export interface IOrder {
   
   customer: string // -> customer id
   staff: string // -> staff id
+  
   total_amount: number
   
   status: OrderStatus

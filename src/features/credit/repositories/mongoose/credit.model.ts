@@ -16,15 +16,31 @@ const creditSchema: Schema = new Schema<ICredit & { _id: string }>(
       required: true,
     },
 
-    order: {
-      type: String,
-      ref: 'Order',
-      required: true,
-    },
+    products: [
+      {
+        product: {
+          type: String,
+          ref: 'Product',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        total: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
 
-    customer: {
+    balance: {
       type: String,
-      ref: 'Customer',
+      ref: 'Balance',
       required: true,
     },
 
@@ -41,7 +57,6 @@ const creditSchema: Schema = new Schema<ICredit & { _id: string }>(
     observation: {
       type: String,
     },
-    
   },
   {
     id: true,
