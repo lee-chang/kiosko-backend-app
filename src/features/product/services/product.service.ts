@@ -36,7 +36,7 @@ export class ProductSevice {
     if (!product)
       throw new ErrorExt('PRODUCT_NOT_EXIST', HttpStatus.BAD_REQUEST)
 
-    if (product.image) await deleteImage(product.image.public_id)
+    // if (product.image) await deleteImage(product.image.public_id)
 
     const productDeleted = await productRepository.deleteProductById(id)
     return notUndefinedOrNull(productDeleted)

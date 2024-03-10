@@ -18,6 +18,7 @@ export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
     const currentPage = page > totalPages ? totalPages : page || 1
 
     const balances = await BalanceModel.find()
+      .populate('customer', "id name typeCustomer")
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()
@@ -47,7 +48,9 @@ export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
   }
 
   async updateBalanceById(id: string, balance: IBalance) {
-    const updateRol = await BalanceModel.findByIdAndUpdate(id, balance, { new: true })
+    const updateRol = await BalanceModel.findByIdAndUpdate(id, balance, {
+      new: true,
+    })
     return updateRol
   }
 

@@ -44,6 +44,12 @@ const creditSchema: Schema = new Schema<ICredit & { _id: string }>(
       required: true,
     },
 
+    customer: {
+      type: String,
+      ref: 'Customer',
+      required: true,
+    },
+
     status: {
       type: String,
       required: true,

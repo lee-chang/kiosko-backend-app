@@ -16,6 +16,7 @@ const creditSchema = z.object({
   // order: z.string(),
   balance: z.string(),
   staff: z.string(),
+  customer: z.string(),
   amount: z.number(),
   products: z.array(productSaleSchema),
   status: z.nativeEnum(CreditStatus),

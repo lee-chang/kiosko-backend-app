@@ -25,7 +25,7 @@ export class BalanceRepository implements BalanceRepositoryPort {
     return await this.balanceRepository.createBalance(balance)
   }
 
-  async updateBalanceById(id: string, balance: IBalance): Promise<IBalance | null> {
+  async updateBalanceById(id: string, balance: Partial<IBalance>): Promise<IBalance | null> {
     return await this.balanceRepository.updateBalanceById(id, balance)
   }
 

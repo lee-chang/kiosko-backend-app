@@ -11,7 +11,8 @@ export interface IProductSale {
 export interface ICredit {
   id: string
   
-  balance: string // -> customer id
+  balance: string // -> balance id
+  customer: string // -> customer id
   staff: string // -> staff id
   
   amount: number; // Monto del crédito

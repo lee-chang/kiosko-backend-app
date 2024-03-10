@@ -4,6 +4,7 @@ import { CreditRepository } from '../repositories/credit.repository'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
 import { ErrorExt } from '../../../core/utils/http.response.util'
 import { KeyPermissionsType } from '../../../core/interfaces/permissions'
+import { CreditBalanceService } from './credit-balance.service'
 
 const creditRepository = new CreditRepository()
 
@@ -34,6 +35,12 @@ export class CreditSevice {
 
   static async createCredit(credit: ICredit) {
     const creditCreated = await creditRepository.createCredit(credit)
+
+    // Update balance
+    if (creditCreated) {
+      await CreditBalanceService.AddCreditToBalance(creditCreated.id, credit.balance)
+    }
+
     return notUndefinedOrNull(creditCreated)
   }
 }
