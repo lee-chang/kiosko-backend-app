@@ -5,6 +5,8 @@ import {
   PaginateData,
   initialPaginateData,
 } from '../../../../core/interfaces/resPaginate.interface'
+import { ICustomer } from '../../../customer/interfaces/customer.interface'
+import { IPayment } from '../../../payment/interfaces/payment.interface'
 
 export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
   async findAllBalances(
@@ -18,7 +20,7 @@ export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
     const currentPage = page > totalPages ? totalPages : page || 1
 
     const balances = await BalanceModel.find()
-      .populate('customer', "id name typeCustomer")
+      .populate('customer', 'id name typeCustomer')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()
@@ -38,6 +40,11 @@ export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
 
   async findBalanceById(id: string) {
     const balance = await BalanceModel.findById(id)
+      .populate('customer')
+      .populate('payment')
+      .populate('credit')      
+      .exec()
+
     return balance
   }
 

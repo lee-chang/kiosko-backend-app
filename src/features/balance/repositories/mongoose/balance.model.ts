@@ -11,10 +11,7 @@ const balanceSchema: Schema = new Schema<IBalance & { _id: string }>(
       unique: true,
       key: true,
     },
-    total: {
-      type: Number,
-      required: true,
-    },
+
     payment: [
       {
         type: String,
@@ -31,6 +28,15 @@ const balanceSchema: Schema = new Schema<IBalance & { _id: string }>(
         ref: 'Credit',
       },
     ],
+    total_credit: {
+      type: Number,
+    },
+    total_payment: {
+      type: Number,
+    },
+    total: {
+      type: Number,
+    },
   },
   {
     id: true,

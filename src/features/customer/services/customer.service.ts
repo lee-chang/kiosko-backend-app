@@ -60,7 +60,6 @@ export class CustomerService {
     )
     const initialBalance: IBalance = {
       id: '',
-      total: 0,
       customer: customerCreated.id,
       payment: [],
       credit: [],

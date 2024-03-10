@@ -5,7 +5,9 @@ export interface IBalance {
   credit: string[]  // -> credit id
   customer: string // -> customer id
 
-  total: number
+  total_credit?: number
+  total_payment?: number
+  total?: number
 
   createdAt?: Date
   updatedAt?: Date

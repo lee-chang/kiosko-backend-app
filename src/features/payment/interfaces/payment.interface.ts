@@ -1,7 +1,7 @@
 export interface IPayment {
   id: string
   amount: number
-  status: boolean // true: aprovated, false: cancelled
+  status: PaymentStatus // true: aprovated, false: rejected
   method: PaymentMethod
   staff: string // -> staff id
   observation?: string
@@ -10,10 +10,17 @@ export interface IPayment {
 }
 
 export enum PaymentMethod {
-  YAPE = 'YAPE',
-  TUNKI = 'TUNKI',
-  PLIM = 'PLIM',
-  TRANSFER = 'TRANSFER',
-  CREDIT_CARD = 'CREDIT_CARD',
-  CASH = 'CASH'
+  YAPE = 'Yape',
+  TUNKI = 'Tunki',
+  PLIM = 'Plim',
+  TRANSFER = 'Transferencia bancaria',
+  CREDIT_CARD = 'Tarjeta de crédito',
+  CASH = 'Efectivo',
+}
+
+export enum PaymentStatus {
+  PENDING = 'Pendiente',
+  APPROVED = 'Aprobado',
+  REJECTED = 'Rechazado',
+  CANCELED = 'Cancelado',
 }

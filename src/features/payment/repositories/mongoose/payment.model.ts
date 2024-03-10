@@ -16,7 +16,7 @@ const paymentSchema: Schema = new Schema<IPayment & { _id: string }>(
       required: true,
     },
     status: {
-      type: Boolean,
+      type: String,
       required: true,
     },
     method: {

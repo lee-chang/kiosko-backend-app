@@ -1,11 +1,11 @@
 import z from 'zod'
-import { IPayment, PaymentMethod } from '../interfaces/payment.interface'
+import { IPayment, PaymentMethod, PaymentStatus } from '../interfaces/payment.interface'
 
 // Hacer uso de la interfaz IUser
 const paymentSchema = z.object({
   id: z.string(),
   amount: z.number(),
-  status: z.boolean(),
+  status: z.nativeEnum(PaymentStatus),
   method: z.nativeEnum(PaymentMethod),
   staff: z.string(),
   observation: z.string().optional(),

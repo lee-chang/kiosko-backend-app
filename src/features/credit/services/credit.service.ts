@@ -31,7 +31,7 @@ export class CreditSevice {
     if (!credit) throw new ErrorExt('CREDIT_NOT_EXIST', HttpStatus.BAD_REQUEST)
   
     // Update balance
-    await CreditBalanceService.removeCreditFromBalance(id, credit.balance)
+    await CreditBalanceService.removeCreditFromBalance(credit, credit.balance)
 
     // Delete credit
     const creditDeleted = await creditRepository.deleteCreditById(id)
@@ -44,7 +44,7 @@ export class CreditSevice {
 
     // Update balance
     if (creditCreated) {
-      await CreditBalanceService.addCreditToBalance(creditCreated.id, credit.balance)
+      await CreditBalanceService.addCreditToBalance(creditCreated, credit.balance)
     }
 
     return notUndefinedOrNull(creditCreated)
