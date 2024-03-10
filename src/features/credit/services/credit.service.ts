@@ -29,7 +29,13 @@ export class CreditSevice {
   static async deleteCreditById(id: string) {
     const credit = await creditRepository.findCreditById(id)
     if (!credit) throw new ErrorExt('CREDIT_NOT_EXIST', HttpStatus.BAD_REQUEST)
+  
+    // Update balance
+    await CreditBalanceService.removeCreditFromBalance(id, credit.balance)
+
+    // Delete credit
     const creditDeleted = await creditRepository.deleteCreditById(id)
+
     return notUndefinedOrNull(creditDeleted)
   }
 
@@ -38,7 +44,7 @@ export class CreditSevice {
 
     // Update balance
     if (creditCreated) {
-      await CreditBalanceService.AddCreditToBalance(creditCreated.id, credit.balance)
+      await CreditBalanceService.addCreditToBalance(creditCreated.id, credit.balance)
     }
 
     return notUndefinedOrNull(creditCreated)

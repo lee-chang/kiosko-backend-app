@@ -36,4 +36,9 @@ export class BalanceSevice {
     const balanceCreated = await balanceRepository.createBalance(balance)
     return notUndefinedOrNull(balanceCreated)
   }
+
+
+  // Extra methods
+
+  
 }

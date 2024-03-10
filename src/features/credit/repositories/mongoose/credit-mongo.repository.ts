@@ -18,6 +18,9 @@ export class CreditRepositoryMongoDB implements CreditRepositoryPort {
     const currentPage = page > totalPages ? totalPages : page || 1
 
     const credits = await CreditModel.find()
+      .populate('staff', 'id name userName')
+      .populate('customer', 'id name')
+      .populate('products.product', 'id name')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()
@@ -47,7 +50,9 @@ export class CreditRepositoryMongoDB implements CreditRepositoryPort {
   }
 
   async updateCreditById(id: string, credit: ICredit) {
-    const updateRol = await CreditModel.findByIdAndUpdate(id, credit, { new: true })
+    const updateRol = await CreditModel.findByIdAndUpdate(id, credit, {
+      new: true,
+    })
     return updateRol
   }
 

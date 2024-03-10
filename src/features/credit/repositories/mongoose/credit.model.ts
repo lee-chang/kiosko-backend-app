@@ -57,6 +57,7 @@ const creditSchema: Schema = new Schema<ICredit & { _id: string }>(
 
     staff: {
       type: String,
+      ref: 'User',
       required: true,
     },
 
