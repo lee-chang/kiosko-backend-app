@@ -23,6 +23,11 @@ const paymentSchema: Schema = new Schema<IPayment & { _id: string }>(
       type: String,
       required: true,
     },
+
+    customer: {
+      type: String,
+      required: true,
+    },
     staff: {
       type: String,
       required: true,

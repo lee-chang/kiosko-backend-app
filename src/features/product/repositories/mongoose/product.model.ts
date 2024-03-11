@@ -23,7 +23,7 @@ const productSchema: Schema = new Schema<IProduct & { _id: string }>(
       type: String,
     },
     reference_price: {
-      type: String,
+      type: Number,
     },
     image: {
       secure_url: String,

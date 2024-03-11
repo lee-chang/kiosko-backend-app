@@ -39,7 +39,7 @@ export class CreditRepositoryMongoDB implements CreditRepositoryPort {
   }
 
   async findCreditById(id: string) {
-    const credit = await CreditModel.findById(id)
+    const credit = await CreditModel.findById(id).populate('staff', 'id name userName').populate('customer').populate('products.product')
     return credit
   }
 
@@ -49,7 +49,7 @@ export class CreditRepositoryMongoDB implements CreditRepositoryPort {
     return creditCreated
   }
 
-  async updateCreditById(id: string, credit: ICredit) {
+  async updateCreditById(id: string, credit: Partial<ICredit>) {
     const updateRol = await CreditModel.findByIdAndUpdate(id, credit, {
       new: true,
     })

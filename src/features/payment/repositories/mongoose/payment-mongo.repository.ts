@@ -18,6 +18,8 @@ export class PaymentRepositoryMongoDB implements PaymentRepositoryPort {
     const currentPage = page > totalPages ? totalPages : page || 1
 
     const payments = await PaymentModel.find()
+      .populate('staff', 'id name userName')
+      .populate('customer', 'id name')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()
@@ -37,6 +39,8 @@ export class PaymentRepositoryMongoDB implements PaymentRepositoryPort {
 
   async findPaymentById(id: string) {
     const payment = await PaymentModel.findById(id)
+      .populate('staff', 'id name userName')
+      .populate('customer')
     return payment
   }
 
@@ -47,7 +51,9 @@ export class PaymentRepositoryMongoDB implements PaymentRepositoryPort {
   }
 
   async updatePaymentById(id: string, payment: IPayment) {
-    const updateRol = await PaymentModel.findByIdAndUpdate(id, payment, { new: true })
+    const updateRol = await PaymentModel.findByIdAndUpdate(id, payment, {
+      new: true,
+    })
     return updateRol
   }
 

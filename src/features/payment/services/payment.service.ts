@@ -1,9 +1,10 @@
 import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
-import { IPayment } from '../interfaces/payment.interface'
+import { IPayment, PaymentStatus } from '../interfaces/payment.interface'
 import { PaymentRepository } from '../repositories/payment.repository'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
 import { ErrorExt } from '../../../core/utils/http.response.util'
 import { KeyPermissionsType } from '../../../core/interfaces/permissions'
+import { PaymentBalanceService } from './payment-balance.service'
 
 const paymentRepository = new PaymentRepository()
 
@@ -21,7 +22,36 @@ export class PaymentSevice {
   }
 
   static async updatePaymentById(id: string, payment: IPayment) {
-    const paymentUpdated = await paymentRepository.updatePaymentById(id, payment)
+    const paymentUpdated = await paymentRepository.updatePaymentById(
+      id,
+      payment
+    )
+
+    if (!paymentUpdated)
+      throw new ErrorExt('PAYMENT_NOT_EXIST', HttpStatus.BAD_REQUEST)
+
+    if (
+      payment.status &&
+      payment.status === PaymentStatus.APPROVED &&
+      paymentUpdated.status !== PaymentStatus.APPROVED
+    ) {
+      await PaymentBalanceService.discountPaymentFromBalance(
+        paymentUpdated,
+        paymentUpdated.balance
+      )
+    }
+
+    if (
+      payment.status &&
+      payment.status !== PaymentStatus.APPROVED &&
+      paymentUpdated.status === PaymentStatus.APPROVED
+    ) {
+      await PaymentBalanceService.addPaymentToBalance(
+        paymentUpdated,
+        paymentUpdated.balance
+      )
+    }
+
     return notUndefinedOrNull(paymentUpdated)
   }
 

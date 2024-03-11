@@ -7,10 +7,7 @@ const productSchema = z.object({
   name: z.string(),
   description: z.string(),
   // String but only accept numbers
-  reference_price: z.string().refine((val) => {
-    if (isNaN(Number(val))) return false
-    return true
-  }),
+  reference_price: z.number(),
   category: z.string().optional(),
   image: z
     .custom<FileList>()

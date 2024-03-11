@@ -2,7 +2,7 @@ export interface IProduct {
   id: string
   name: string
   description: string
-  reference_price: string,
+  reference_price: number,
   category?: string
   image?: {
     secure_url: string,

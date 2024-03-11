@@ -1,5 +1,5 @@
 import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
-import { ICredit } from '../interfaces/credit.interface'
+import { CreditStatus, ICredit } from '../interfaces/credit.interface'
 import { CreditRepository } from '../repositories/credit.repository'
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
 import { ErrorExt } from '../../../core/utils/http.response.util'
@@ -21,8 +21,20 @@ export class CreditSevice {
     return notUndefinedOrNull(credit)
   }
 
-  static async updateCreditById(id: string, credit: ICredit) {
+  static async updateCreditById(id: string, credit: Partial<ICredit>) {   
     const creditUpdated = await creditRepository.updateCreditById(id, credit)
+
+    if (!creditUpdated) throw new ErrorExt('CREDIT_NOT_EXIST', HttpStatus.BAD_REQUEST)
+
+    if (credit.status && credit.status === CreditStatus.APPROVED && creditUpdated.status !== CreditStatus.APPROVED) {
+      await CreditBalanceService.decreaseCreditToBalance(creditUpdated, creditUpdated.balance)
+    }
+
+    if (credit.status && credit.status !== CreditStatus.APPROVED && creditUpdated.status === CreditStatus.APPROVED) {
+      await CreditBalanceService.increaseCreditToBalance(creditUpdated, creditUpdated.balance)
+    }
+    
+
     return notUndefinedOrNull(creditUpdated)
   }
 

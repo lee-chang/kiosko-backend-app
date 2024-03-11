@@ -1,9 +1,14 @@
 export interface IPayment {
   id: string
+
   amount: number
   status: PaymentStatus // true: aprovated, false: rejected
   method: PaymentMethod
+
   staff: string // -> staff id
+  customer: string // -> customer id
+  balance: string // -> balance id
+  
   observation?: string
   createdAt?: Date
   updatedAt?: Date

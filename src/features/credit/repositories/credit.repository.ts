@@ -25,7 +25,7 @@ export class CreditRepository implements CreditRepositoryPort {
     return await this.creditRepository.createCredit(credit)
   }
 
-  async updateCreditById(id: string, credit: ICredit): Promise<ICredit | null> {
+  async updateCreditById(id: string, credit: Partial<ICredit>): Promise<ICredit | null> {
     return await this.creditRepository.updateCreditById(id, credit)
   }
 

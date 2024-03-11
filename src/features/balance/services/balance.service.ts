@@ -5,7 +5,7 @@ import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-re
 import { ErrorExt } from '../../../core/utils/http.response.util'
 import { KeyPermissionsType } from '../../../core/interfaces/permissions'
 import { ICustomer } from '../../customer/interfaces/customer.interface'
-import { IPayment } from '../../payment/interfaces/payment.interface'
+import { IPayment, PaymentStatus } from '../../payment/interfaces/payment.interface'
 import { CreditStatus, ICredit } from '../../credit/interfaces/credit.interface'
 
 const balanceRepository = new BalanceRepository()
@@ -54,7 +54,7 @@ export class BalanceSevice {
 
     // la variable total debe sumar todos los creditos y restar todos los pagos
 
-    // Solo es valido los creditos que esten en estado de "pendiente" y los pagos que esten en estado de "pendiente"
+    // Solo es valido los creditos que esten en estado de "aproved" y los pagos que esten en estado de "aproved"
 
     const tBalance = balance as {
       customer: ICustomer
@@ -77,12 +77,17 @@ export class BalanceSevice {
     // sumar todos los pagos
     tBalance.payment.forEach((payment) => {
       if ( typeof payment === 'object'){
-        if (payment.status) {
+        if (payment.status === PaymentStatus.APPROVED) {
           totalPayment += payment.amount
         }
       }
     })
 
-    return balance.total
+    balance.total = totalCredit - totalPayment
+
+    const balanceUpdated = await balanceRepository.updateBalanceById(id, balance)
+
+    return notUndefinedOrNull(balanceUpdated)
+
   }
 }

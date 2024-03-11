@@ -1,4 +1,5 @@
 import { ENV_CONFIG } from "../../config/env.config";
+import { ErrorExt } from "../utils/http.response.util";
 
 export class RouterPath {
   private _apiPrefix: string = ENV_CONFIG.API_PREFIX;
@@ -6,7 +7,7 @@ export class RouterPath {
 
   public getApiPath(route: string): string {
     if (route === undefined || route === null) {
-      throw new Error("Route not provided");
+      throw new ErrorExt("Route not provided");
     }
     const apiRoute = `/${this._apiPrefix}/${this._apiVersion}/${route}`;
     console.info(apiRoute);
