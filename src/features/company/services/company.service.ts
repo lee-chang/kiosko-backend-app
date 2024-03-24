@@ -1,12 +1,15 @@
 import { notUndefinedOrNull } from '../../../core/service/exceptions/data-not-received.exception'
+import { UserRepository } from '../../user/repositories/user.repository'
 import { ICompany } from '../interfaces/company.interface'
 import { CompanyRepository } from '../repositories/company.repository'
 
 
 const companyRepository = new CompanyRepository()
+const userRepository = new UserRepository()
 
 export class CompanyService {
   private static companyRepository = companyRepository
+  private static userRepository = userRepository
 
   static async getCompanyById(id: string) {
     const company = await this.companyRepository.findCompanyById(id)
@@ -33,6 +36,16 @@ export class CompanyService {
 
   static async createCompany(company: ICompany) {
     const companyCreated = await this.companyRepository.createCompany(company)
+
+    // update User with company
+
+    const user = await this.userRepository.updateUserById(company.admin, { company: companyCreated.id })
+
+    if (!user) {
+      await this.companyRepository.deleteCompanyById(companyCreated.id)
+      return null
+    }
+
     return notUndefinedOrNull(companyCreated)
   }
 

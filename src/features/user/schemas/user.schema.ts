@@ -15,6 +15,7 @@ const userSchema = z.object({
   email: z.string().email().min(3).max(255),
   password: passwordSchema,
   verified: z.boolean().optional(),
+  company: z.string().min(3).max(255),
   fullName: z.string().min(3).max(255).optional(),
   login_code: z.string().min(3).max(255).optional(),
   phone: z.array(phoneSchema).optional(),

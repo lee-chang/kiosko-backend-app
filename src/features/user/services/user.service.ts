@@ -20,7 +20,7 @@ export class UserService {
     return users
   }
 
-  static async updateUserById(id: string, user: IUser): Promise<IUser> {
+  static async updateUserById(id: string, user: Partial<IUser>): Promise<IUser> {
     // Is exist user.password -> hash password
     if (user.password) {
       const passwordHashed = await AuthUtil.hashPassword(user.password)

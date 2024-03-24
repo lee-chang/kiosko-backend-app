@@ -2,8 +2,6 @@
 
 import { IAuthCredentials } from '../features/auth/interfaces/auth.interface'
 import { AuthUserService } from '../features/auth/services/auth-user.service'
-import { ICompany } from '../features/company/interfaces/company.interface'
-import { CompanyRepository } from '../features/company/repositories/company.repository'
 import { IRole } from '../features/role/interfaces/role.interface'
 import { RoleRepository } from '../features/role/repositories/role.repository'
 import { TypePerson } from '../features/shared/interfaces/person.interface'
@@ -11,7 +9,6 @@ import { UserRoleService } from '../features/user/services/user-role.service'
 import { UserService } from '../features/user/services/user.service'
 
 const roleRepository = new RoleRepository()
-const companyRepository = new CompanyRepository()
 
 // ** Create First User SuperAdmin **
 const userSuperAdmin: IAuthCredentials = {
@@ -27,26 +24,15 @@ const roleSuperAdmin: IRole = {
   name: 'SuperAdmin',
   description: 'Super Admin role',
   permissions: ['ALL_PERMISSIONS'],
-  authorizations: [],
+  authorizations:[],
   by: TypePerson.user,
   users: [],
   isActive: true,
 }
 
-// Company Default
-const companyDefault: ICompany = {
-  name: 'Kiosko',
-  admin: '',
-  staff: [],
-  id: '',
-  verified: false,
-  credit_total: 0,
-  payment_total: 0,
-}
-
 //Setup SuperAdmin
 
-const SetupAPP = async () => {
+const superadminSetup = async () => {
   try {
     const isUserSuperAdminDefault = await UserService.isUserExistWithEmail(
       userSuperAdmin.email
@@ -75,23 +61,17 @@ const SetupAPP = async () => {
 
     if (isSuperAdmin && isSuperAdmin.users.length < 1) {
       await createSuperAdminDefault(isSuperAdmin.id)
-      return 
     }
 
     // Case 4 No existe el rol SuperAdmin, crear rol y usuario
     if (!isSuperAdmin) {
       await createUserAndRoleSuperAdminDefault()
-      return
     }
 
     // Tiene usuarios?
     if (isSuperAdmin) {
       await createSuperAdminDefault(isSuperAdmin.id)
-      return
     }
-
-
-    
   } catch (error) {
     console.log(error)
   }
@@ -102,12 +82,6 @@ async function createSuperAdminDefault(idSuperAdmin: string) {
     console.log('Creating SuperAdmin user ...')
     const user = await AuthUserService.createUser(userSuperAdmin)
     console.log('✅ SuperAdmin user created.')
-
-
-    // Crear Company
-    console.log('Creating Company ...')
-    const company = await createCompanyDefault(user.user.id)
-    console.log('✅ Company created.')
 
     // Asignar rol
     console.log('Assigning SuperAdmin role ...')
@@ -146,36 +120,12 @@ async function createUserAndRoleSuperAdminDefault() {
     console.log('✅✅ SuperAdmin role assigned.')
 
     console.log('SuperAmin:', assignRole)
-
-    // Crear Company
-    console.log('Creating Company ...')
-    const company = await createCompanyDefault(user.user.id)
-    console.log('✅ Company created.')
-
     return
   } catch (error) {
     console.log(error)
   }
 }
 
-
-async function createCompanyDefault(idAdmin: string) {
-  
-  const dataCompany = {
-    ...companyDefault,
-    admin: idAdmin,
-  }
-  
-  try {
-    console.log('Creating Company ...')
-    const company = await companyRepository.createCompany(dataCompany)
-    console.log('✅ Company created.')
-    return company
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export default function setupInitial() {
-  SetupAPP()
+  superadminSetup()
 }

@@ -21,6 +21,8 @@ export class BalanceRepositoryMongoDB implements BalanceRepositoryPort {
 
     const balances = await BalanceModel.find()
       .populate('customer', 'id name typeCustomer')
+      .populate('payment', 'id amount status')
+      .populate('credit', 'id amount status')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()

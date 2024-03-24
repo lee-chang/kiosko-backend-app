@@ -37,6 +37,10 @@ const UserSchema: Schema = new Schema<IUser & {_id:string}>(
         ref: 'Role',
       },
     ],
+    company: {
+      type: String,
+      ref: 'Company',
+    },
     verified: {
       type: Boolean,
       default: false,

@@ -10,7 +10,6 @@ const companySchema = z.object({
   staff: z.array(z.string()),
   credit_total: z.number(),
   payment_total: z.number(),
-  customer_top_balance: z.array(z.string()),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 }) satisfies z.ZodType<ICompany>

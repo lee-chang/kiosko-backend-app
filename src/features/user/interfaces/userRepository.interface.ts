@@ -5,6 +5,6 @@ export interface UserRepositoryPort {
   findAllUsers(): Promise<IUser[]>
   findUserById(id: string): Promise<IUser | null>
   findUserByEmail(email: string): Promise<IUser | null>
-  updateUserById(id: string, user: IUser): Promise<IUser | null>
+  updateUserById(id: string, user: Partial<IUser>): Promise<IUser | null>
   deleteUserById(id: string): Promise<Boolean>
 }

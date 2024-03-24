@@ -39,6 +39,7 @@ export class AuthService {
         userName: newUser.user.userName,
         email: newUser.user.email,
         role: roles,
+        company: newUser.user.company,
       },
       type: TypePerson.user,
       token: newUser.token,
@@ -62,10 +63,12 @@ export class AuthService {
         userName: userLogged.userName,
         email: userLogged.email,
         role: roles,
+        company: userLogged.company,
       },
       type: TypePerson.user,
       token: token,
     }
+
     return data
 
   }
@@ -84,6 +87,7 @@ export class AuthService {
       userName: userFound.userName,
       email: userFound.email,
       role: roles,
+      company: userFound.company,
     }
     return data
   }

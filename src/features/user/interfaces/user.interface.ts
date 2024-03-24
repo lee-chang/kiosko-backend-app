@@ -5,6 +5,7 @@ export interface IUser extends IPerson, IAuthCredentials {
   id: string
   userName: string
   verified: boolean
+  company?: string
   role: string[]
   login_code: string
   recovery_code: string

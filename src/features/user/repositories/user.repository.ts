@@ -1,3 +1,4 @@
+import { IUser } from '../interfaces/user.interface'
 import { UserRepositoryPort } from '../interfaces/userRepository.interface'
 import { UserRepositoryMongoDB } from './mongoose/user-mongo.repository'
 
@@ -25,7 +26,7 @@ export class UserRepository implements UserRepositoryPort {
     return await this.userRepository.findUserByEmail(email)
   }
 
-  async updateUserById(id: string, user: any) {
+  async updateUserById(id: string, user: Partial<IUser>) {
     return await this.userRepository.updateUserById(id, user)
   }
 

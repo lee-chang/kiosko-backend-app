@@ -29,6 +29,7 @@ export class AuthUserService {
       id: newUser.id,
       type: TypePerson.user,
       role: roles,
+      company: newUser.company,
     }
     const token = await AuthUtil.generateToken(payload)
     if (!token) throw new ErrorExt('TOKEN_NOT_GENERATED')
@@ -58,6 +59,7 @@ export class AuthUserService {
       type: TypePerson.user,
       role: roles,
       rememberMe: isRememberMe,
+      company: userFount.company,
     }
 
     const token = await AuthUtil.generateToken(payload)

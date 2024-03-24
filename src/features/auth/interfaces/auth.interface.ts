@@ -11,6 +11,7 @@ export interface userData {
     userName: string
     email: string
     role: string[]
+    company?: string
   }
   
 export interface resAuth {
