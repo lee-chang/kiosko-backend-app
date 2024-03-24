@@ -47,5 +47,21 @@ router.delete(
 )
 
 
+// ** UTILS
+
+router.get(
+  '/:id/sync-credit-total',
+  authRequired,
+  validatePermission(Permission.READ_COMPANY),
+  CompanyControlller.syncCreditsTotal
+)
+
+router.get(
+  '/:id/sync-payment-total',
+  authRequired,
+  validatePermission(Permission.READ_COMPANY),
+  CompanyControlller.syncPaymentsTotal
+)
+
 
 export default router

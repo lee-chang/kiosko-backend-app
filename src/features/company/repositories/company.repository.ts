@@ -21,7 +21,7 @@ export class CompanyRepository implements CompanyRepositoryPort {
     return await this.companyRepository.findCompanyById(id)
   }
 
-  async updateCompanyById(id: string, company: ICompany) {
+  async updateCompanyById(id: string, company: Partial<ICompany>) {
     return await this.companyRepository.updateCompanyById(id, company)
   }
 

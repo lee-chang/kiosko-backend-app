@@ -58,12 +58,46 @@ export class PaymentSevice {
   static async deletePaymentById(id: string) {
     const payment = await paymentRepository.findPaymentById(id)
     if (!payment) throw new ErrorExt('ROLE_NOT_EXIST', HttpStatus.BAD_REQUEST)
+
+    // Update balance
+    await PaymentBalanceService.removePaymentFromBalance(
+      payment,
+      payment.balance
+    )
+
     const paymentDeleted = await paymentRepository.deletePaymentById(id)
+
     return notUndefinedOrNull(paymentDeleted)
   }
 
   static async createPayment(payment: IPayment) {
     const paymentCreated = await paymentRepository.createPayment(payment)
+
+    // Update balance
+    if (paymentCreated) {
+      await PaymentBalanceService.addPaymentToBalance(
+        paymentCreated,
+        payment.balance
+      )
+    }
+
     return notUndefinedOrNull(paymentCreated)
+  }
+
+  // **  Utils
+
+  static async sumAmountTotalPayments() {
+    const { data: payments } = await paymentRepository.findAllPayments(
+      1,
+      Infinity
+    )
+    const total = payments.reduce((acc, credit) => {
+      if (credit.status === PaymentStatus.APPROVED) {
+        acc + credit.amount
+      }
+      return acc
+    }, 0)
+
+    return total
   }
 }

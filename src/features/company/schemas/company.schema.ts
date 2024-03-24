@@ -7,6 +7,12 @@ const companySchema = z.object({
   name: z.string().min(3).max(255),
   verified: z.boolean(),
   admin: z.string(),
+  staff: z.array(z.string()),
+  credit_total: z.number(),
+  payment_total: z.number(),
+  customer_top_balance: z.array(z.string()),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 }) satisfies z.ZodType<ICompany>
 
 export const CompanySchema = {

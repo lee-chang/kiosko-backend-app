@@ -2,33 +2,45 @@ import { model, Schema } from 'mongoose'
 import { UuidGenerator } from '../../../../core/utils/UuidGenerator.util'
 import { ICompany } from '../../interfaces/company.interface'
 
-
-
-const CompanySchema: Schema = new Schema<ICompany & {_id:string}>(
+const CompanySchema: Schema = new Schema<ICompany & { _id: string }>(
   {
     _id: {
-      type:String
+      type: String,
     },
     id: {
       type: String,
       unique: true,
-      key: true      
+      key: true,
     },
     name: {
       type: String,
       require: true,
       trim: true,
-
     },
-    admin: [
-      {
-        type: String,
-        ref: 'User',
-      },
-    ],
+    admin: {
+      type: String,
+      ref: 'User',
+    },
     verified: {
       type: Boolean,
       default: false,
+    },
+    staff: {
+      type: [
+        {
+          type: String,
+          ref: 'User',
+        },
+      ],
+      default: [],
+    },
+    credit_total: {
+      type: Number,
+      default: 0,
+    },
+    payment_total: {
+      type: Number,
+      default: 0,
     },
   },
   {
@@ -43,17 +55,17 @@ const CompanySchema: Schema = new Schema<ICompany & {_id:string}>(
   }
 )
 
-CompanySchema.pre('save', async function(next) {
+CompanySchema.pre('save', async function (next) {
   // Crea un id de ira
-  const uuid = new UuidGenerator().generate();
+  const uuid = new UuidGenerator().generate()
 
   // Asigna el id de ira a los atributos _id e id
-  this._id = uuid;
-  this.id = uuid;
+  this._id = uuid
+  this.id = uuid
 
   // Continúa con el proceso de guardado
-  next();
-});
+  next()
+})
 
 const CompanyModel = model<ICompany>('Company', CompanySchema)
 export default CompanyModel

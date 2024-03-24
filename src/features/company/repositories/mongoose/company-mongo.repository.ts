@@ -43,7 +43,7 @@ export class CompanyRepositoryMongoDB implements CompanyRepositoryPort {
     return company
   }
 
-  async updateCompanyById(id: string, company: ICompany) {
+  async updateCompanyById(id: string, company: Partial<ICompany>) {
     const companyUpdated = await CompanyModel.findByIdAndUpdate(id, company, {
       new: true,
     })

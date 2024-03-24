@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { HttpStatus } from '../../../core/interfaces/httpStatus.interface'
 import { CompanyService } from '../services/company.service'
+import { CompanyCreditService } from '../services/company-credit.service'
+import { CompanyPaymentService } from '../services/company-payment.service'
 
 export class CompanyControlller {
 
@@ -54,6 +56,29 @@ export class CompanyControlller {
     try {
       const companyDeleted = await CompanyService.deleteCompanyById(id)
       return res.status(HttpStatus.OK).send(companyDeleted)
+    } catch (err) {
+      next(err)
+    }
+  }
+
+
+  // ** ORM COMPANY CREDIT AND PAYMENT
+
+  static async syncCreditsTotal(req: Request, res: Response,next:NextFunction) {
+    const { id } = req.params
+    try {
+      const companyUpdated = await CompanyCreditService.sumCreditsByCompany(id)
+      return res.status(HttpStatus.OK).send(companyUpdated)
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  static async syncPaymentsTotal(req: Request, res: Response,next:NextFunction) {
+    const { id } = req.params
+    try {
+      const companyUpdated = await CompanyPaymentService.sumPaymentsByCompany(id)
+      return res.status(HttpStatus.OK).send(companyUpdated)
     } catch (err) {
       next(err)
     }

@@ -26,10 +26,17 @@ const paymentSchema: Schema = new Schema<IPayment & { _id: string }>(
 
     customer: {
       type: String,
+      ref: 'Customer',
       required: true,
     },
     staff: {
       type: String,
+      ref: 'User',
+      required: true,
+    },
+    balance: {
+      type: String,
+      ref: 'Balance',
       required: true,
     },
     observation: {

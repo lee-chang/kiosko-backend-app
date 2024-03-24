@@ -19,11 +19,11 @@ export class PaymentRepositoryMongoDB implements PaymentRepositoryPort {
 
     const payments = await PaymentModel.find()
       .populate('staff', 'id name userName')
-      .populate('customer', 'id name')
+      .populate('customer')
       .limit(limit)
       .skip((page - 1) * limit)
       .exec()
-
+      
     if (!payments) {
       return initialPaginateData
     }
